@@ -10,6 +10,8 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField] private Rigidbody childRb;
 
+    bool isMoving = false;
+
     private bool canJump;
 
     #endregion
@@ -33,12 +35,23 @@ public class PlayerMovementController : MonoBehaviour
             Jump();
         }
 
-         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));            
+            isMoving = true;
+        }else
+        {
+            isMoving = false;
         }
     }
 
+    void FixedUpdate()
+    {
+        if (isMoving)
+        {
+            Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        }
+
+    }
     // void FixedUpdate()
     // {
     //     if (!hasAuthority)
@@ -50,7 +63,7 @@ public class PlayerMovementController : MonoBehaviour
     //     {
     //         MovePlayer(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));            
     //     }
-        
+
     // }
 
     void Jump()
