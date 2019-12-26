@@ -51,20 +51,7 @@ public class PlayerMovementController : MonoBehaviour
             Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
 
-    }
-    // void FixedUpdate()
-    // {
-    //     if (!hasAuthority)
-    //     {
-    //         return;
-    //     }        
-
-    //     if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-    //     {
-    //         MovePlayer(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));            
-    //     }
-
-    // }
+    }    
 
     void Jump()
     {
