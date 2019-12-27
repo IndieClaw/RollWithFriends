@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2684755313703497784}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2684755312830059068}
@@ -75,11 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79520da9ae5ac274abf19976bb7b7f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPlayerOffset: {x: 0, y: 3, z: -6.5}
+  cameraPlayerOffset: {x: 0, y: 2.5, z: -4.5}
   target: {fileID: 2684755314217779527}
   controllerSpeed: 5
   pivot: {fileID: 2684755312830059068}
-  minAngle: -45
+  minAngle: 9
   maxAngle: 45
 --- !u!1 &2684755314189154701
 GameObject:
