@@ -81,6 +81,8 @@ MonoBehaviour:
   pivot: {fileID: 2684755312830059068}
   minAngle: 9
   maxAngle: 45
+  transparencyMaterial: {fileID: 2100000, guid: b93e3ca4bb8675b47b7a591e39b8509e,
+    type: 2}
 --- !u!1 &2684755314189154701
 GameObject:
   m_ObjectHideFlags: 0
