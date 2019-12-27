@@ -65,6 +65,7 @@ public class CameraManager : MonoBehaviour
     {
         pivot.transform.position += cameraPlayerOffset;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
