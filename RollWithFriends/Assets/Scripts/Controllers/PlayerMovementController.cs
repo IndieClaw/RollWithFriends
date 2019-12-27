@@ -11,6 +11,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private Rigidbody childRb;
 
     bool isMoving = false;
+    bool canMove = false;
 
     private bool canJump;
 
@@ -25,11 +26,14 @@ public class PlayerMovementController : MonoBehaviour
 
     void Start()
     {
-
+        SubscribeEvents();
     }
 
     void Update()
     {
+        if(!canMove)
+            return;
+
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
@@ -46,12 +50,41 @@ public class PlayerMovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!canMove)
+            return;
+
         if (isMoving)
         {
             Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
 
     }    
+
+    private void OnDisable() 
+    {
+        UnSubscribeEvents();
+        
+    }
+
+    private void OnDestroy() 
+    {
+        UnSubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        LevelManager.OnLevelStarted += AllowMovement;
+    }
+
+    private void UnSubscribeEvents()
+    {
+        LevelManager.OnLevelStarted -= AllowMovement;
+    }
+
+    private void AllowMovement()
+    {
+        canMove = true;
+    }
 
     void Jump()
     {
@@ -80,6 +113,7 @@ public class PlayerMovementController : MonoBehaviour
 
         CameraManager.instance.target = gameObject.transform;
     }
+
     #endregion
 
     #region Colision

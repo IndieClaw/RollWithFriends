@@ -12,7 +12,7 @@ public class Checkpoint : MonoBehaviour
         Checkpoint
     }
 
-[SerializeField] private CheckpointType checkpointType;
+[SerializeField] public CheckpointType checkpointType;
 [SerializeField] private Checkpoint previousCheckpoint;
 
 [SerializeField] private Checkpoint nextCheckpoint;
