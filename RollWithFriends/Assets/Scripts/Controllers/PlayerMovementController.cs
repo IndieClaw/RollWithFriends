@@ -88,10 +88,10 @@ public class PlayerMovementController : MonoBehaviour
 
     void Jump()
     {
-        if (canJump)
+        if (canJump || childRb.velocity.y == 0)
         {
             childRb.AddForce(new Vector3(0, jumpForce, 0));
-            
+            canJump = false;
         }
     }
 
