@@ -91,7 +91,7 @@ public class PlayerMovementController : MonoBehaviour
         if (canJump)
         {
             childRb.AddForce(new Vector3(0, jumpForce, 0));
-            canJump = false;
+            
         }
     }
 
@@ -122,6 +122,14 @@ public class PlayerMovementController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             canJump = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            canJump = false;
         }
     }
     #endregion
