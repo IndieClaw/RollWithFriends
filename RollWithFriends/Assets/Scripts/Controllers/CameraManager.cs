@@ -59,6 +59,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         pivot.transform.position += cameraPlayerOffset;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -72,6 +73,7 @@ public class CameraManager : MonoBehaviour
         {
             FollowTarget();
             HandleRotations(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight"));
+            HandleRotations(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
     }
 
@@ -82,6 +84,9 @@ public class CameraManager : MonoBehaviour
 
     void HandleRotations(float vertical, float horizontal)
     {
+        if (vertical == 0 && horizontal == 0) 
+            return;
+
         if (turnSmoothing > 0)
         {
             smoothX = Mathf.SmoothDamp(smoothX, vertical, ref smoothVelocityX, turnSmoothing);
