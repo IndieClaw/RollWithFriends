@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     private Checkpoint lastCheckpointReached;
+
+    public static event Action<PlayerController> OnPlayerReachedEnd = delegate { };
 
     #endregion
 
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position =
                 GameObject.FindObjectsOfType<Checkpoint>()
-                    .Where(c =>c.checkpointType == Checkpoint.CheckpointType.Start)
+                    .Where(c => c.checkpointType == Checkpoint.CheckpointType.Start)
                     .FirstOrDefault()
                     .respawnPoint.transform.position;
         }
@@ -53,7 +56,13 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag(Constants.TagCheckpoint))
         {
-            lastCheckpointReached = other.transform.GetComponent<Checkpoint>();
+            var cp = other.transform.GetComponent<Checkpoint>();
+            lastCheckpointReached = cp;
+
+            if (cp.checkpointType == Checkpoint.CheckpointType.End)
+            {
+                OnPlayerReachedEnd(this);
+            }
         }
 
         if (other.CompareTag(Constants.TagDeath))

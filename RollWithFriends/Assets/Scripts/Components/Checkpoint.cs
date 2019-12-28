@@ -59,10 +59,16 @@ public class Checkpoint : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(Constants.TagPlayer))
-        {            
-            checkpointCollider.SetActive(false);
+    {       
+        // We only want to deactivate checkpoints that are not "start" or "end" 
+        if (checkpointType == CheckpointType.Checkpoint
+            && other.CompareTag(Constants.TagPlayer))
+        {
+            if (checkpointCollider != null)
+            {                
+                checkpointCollider.SetActive(false);
+            }
+
             if (previousCheckpoint != null)
             {                
                 previousCheckpoint.DisableCheckPoint();

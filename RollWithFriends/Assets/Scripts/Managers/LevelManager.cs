@@ -18,7 +18,11 @@ public class LevelManager : MonoBehaviour
 
     Vector3 startingCheckpoint;
 
+    bool canIncrementLevelTimer;
+
     public bool isInDevelopmentMode = false;
+
+    float levelTimer = 0f;
 
     #endregion
 
@@ -37,6 +41,8 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        SubscribeEvents();
+
         waitForOneSecond = new WaitForSeconds(1);
 
         startingCheckpoint = GameObject.FindObjectsOfType<Checkpoint>()
@@ -50,7 +56,31 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        if (canIncrementLevelTimer)
+        {
+            levelTimer += Time.deltaTime;
+        }
+    }
 
+
+    private void OnDisable()
+    {
+        UnSubscribeEvents();
+    }
+
+    private void OnDestroy()
+    {
+        UnSubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        PlayerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
+    }
+
+    private void UnSubscribeEvents()
+    {
+        PlayerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
     }
 
     void InstantiatePlayer()
@@ -61,6 +91,17 @@ public class LevelManager : MonoBehaviour
               rotation: Quaternion.identity);
     }
 
+    void OnPlayerReachedEnd(PlayerController player)
+    {
+        canIncrementLevelTimer = false;
+        print(levelTimer);
+    }
+
+    void LevelStarted()
+    {
+        canIncrementLevelTimer = true;
+    }
+
     void StartCountdownTimer()
     {
         StartCoroutine(StartCountdownTimerCoroutine());
@@ -68,16 +109,15 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator StartCountdownTimerCoroutine()
     {
-        if (isInDevelopmentMode) // TODO JS: remove
+        if (isInDevelopmentMode) // TODO JS: remove in final build
         {
             yield return new WaitForSeconds(0.1f);
             OnLevelStarted();
+            LevelStarted();
             yield return null;
         }
         else
         {
-
-
             for (int i = startingCountdownTime; i >= 0; i--)
             {
                 print(i);
@@ -85,6 +125,7 @@ public class LevelManager : MonoBehaviour
                 {
                     print("GO!");
                     OnLevelStarted();
+                    LevelStarted();
                     yield return null;
                 }
 
