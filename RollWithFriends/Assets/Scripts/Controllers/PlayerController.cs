@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,10 +30,23 @@ public class PlayerController : MonoBehaviour
 
     }
     void Respawn()
-    {        
+    {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        transform.position = lastCheckpointReached.respawnPoint.transform.position;
+
+        if (lastCheckpointReached != null)
+        {
+            transform.position =
+                lastCheckpointReached.respawnPoint.transform.position;
+        }
+        else
+        {
+            transform.position =
+                GameObject.FindObjectsOfType<Checkpoint>()
+                    .Where(c =>c.checkpointType == Checkpoint.CheckpointType.Start)
+                    .FirstOrDefault()
+                    .respawnPoint.transform.position;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,10 +58,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag(Constants.TagDeath))
         {
-            if (lastCheckpointReached != null)
-            {
-                Respawn();
-            }
+            Respawn();
         }
     }
 
