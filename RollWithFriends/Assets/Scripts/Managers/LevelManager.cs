@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -23,6 +24,8 @@ public class LevelManager : MonoBehaviour
     public bool isInDevelopmentMode = false;
 
     float levelTimer = 0f;
+
+    [SerializeField] TextMeshProUGUI timerTextMesh;
 
     #endregion
 
@@ -59,6 +62,11 @@ public class LevelManager : MonoBehaviour
         if (canIncrementLevelTimer)
         {
             levelTimer += Time.deltaTime;
+
+            if (timerTextMesh != null)
+            {
+                timerTextMesh.text = levelTimer.ToString("F2");
+            }                
         }
     }
 
