@@ -8964,6 +8964,11 @@ PrefabInstance:
       propertyPath: isInDevelopmentMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
+        type: 3}
+      propertyPath: timerTextMesh
+      value: 
+      objectReference: {fileID: 1416486981}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0c43b9157b40424185c30b0ecdf1869, type: 3}
 --- !u!1 &2061492964
