@@ -38,7 +38,7 @@ public class Checkpoint : MonoBehaviour
         
         if(previousCheckpoint != null)
         {
-            previousCheckpoint.previousCheckpoint.DisableCheckPoint();
+            previousCheckpoint.DisableCheckPoint();
         }
     }
 
