@@ -8,12 +8,12 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float speed = 8;
     [SerializeField] private int jumpForce = 300;
 
-    [SerializeField] private Rigidbody childRb;
+    [SerializeField] private Rigidbody rb;    
 
     bool isMoving = false;
     bool canMove = false;
 
-    private bool canJump;
+    private bool canJump = true;
 
     #endregion
 
@@ -38,7 +38,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             Jump();
         }
-
+       
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             isMoving = true;
@@ -88,9 +88,9 @@ public class PlayerMovementController : MonoBehaviour
 
     void Jump()
     {
-        if (canJump || childRb.velocity.y == 0)
+        if (canJump || rb.velocity.y == 0)
         {
-            childRb.AddForce(new Vector3(0, jumpForce, 0));
+            rb.AddForce(new Vector3(0, jumpForce, 0));
             canJump = false;
         }
     }
@@ -103,7 +103,7 @@ public class PlayerMovementController : MonoBehaviour
 
         var desiredMoveDirection = (verticalOrientation + horizontalOrientation).normalized;
 
-        childRb.AddForce(desiredMoveDirection * speed);
+        rb.AddForce(desiredMoveDirection * speed);
     }
 
 
@@ -124,13 +124,6 @@ public class PlayerMovementController : MonoBehaviour
             canJump = true;
         }
     }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            canJump = false;
-        }
-    }
+ 
     #endregion
 }

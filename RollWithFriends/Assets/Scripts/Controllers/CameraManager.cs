@@ -135,7 +135,7 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            if (obstruction != null)
+            if (meshRenderer != null)
             {
                 meshRenderer.material = obstructionMaterial;
                 meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;

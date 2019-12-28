@@ -12,29 +12,52 @@ public class Checkpoint : MonoBehaviour
         Checkpoint
     }
 
-[SerializeField] public CheckpointType checkpointType;
-[SerializeField] private Checkpoint previousCheckpoint;
+    [SerializeField] public CheckpointType checkpointType;
 
-[SerializeField] private Checkpoint nextCheckpoint;
+    [SerializeField] private Checkpoint previousCheckpoint;
 
-#endregion
+    [SerializeField] private GameObject checkpointCollider;
 
-#region Public methods
-
-#endregion
+    [SerializeField] public GameObject respawnPoint;
 
 
-#region Private methods	
+    #endregion
 
-void Start()
-{
+    #region Public methods
 
-}
+    /// <summary>
+    /// Disables the checkpoint collider so that the player cant 
+    /// pass through it.
+    /// </summary>
+    public void DisableCheckPoint()
+    {
+        checkpointCollider.SetActive(false);
+    }
 
-void Update()
-{
+    #endregion
 
-}
-	
-	#endregion
+
+    #region Private methods	
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Constants.TagPlayer))
+        {            
+            if (previousCheckpoint != null)
+            {                
+                previousCheckpoint.DisableCheckPoint();
+            }
+        }
+    }
+    #endregion
 }
