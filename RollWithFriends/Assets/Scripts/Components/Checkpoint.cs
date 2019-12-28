@@ -31,8 +31,17 @@ public class Checkpoint : MonoBehaviour
     /// </summary>
     public void DisableCheckPoint()
     {
-        checkpointCollider.SetActive(false);
+        if(checkpointCollider != null)
+        {
+            checkpointCollider.SetActive(false);
+        }
+        
+        if(previousCheckpoint != null)
+        {
+            previousCheckpoint.previousCheckpoint.DisableCheckPoint();
+        }
     }
+
 
     #endregion
 
@@ -53,6 +62,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag(Constants.TagPlayer))
         {            
+            checkpointCollider.SetActive(false);
             if (previousCheckpoint != null)
             {                
                 previousCheckpoint.DisableCheckPoint();
