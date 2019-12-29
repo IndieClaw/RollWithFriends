@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     #region Fields and properties
     public static UIManager instance;
 
+    [SerializeField] TextMeshProUGUI finalCanvasTimer;
+    [SerializeField] GameObject finalScreenCanvas;
 
     #endregion
 
@@ -52,12 +54,20 @@ public class UIManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        //PlayerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
+        LevelManager.OnLevelEnded += ShowFinalScreen;
     }
 
     private void UnSubscribeEvents()
     {
-        //PlayerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
+        LevelManager.OnLevelEnded -= ShowFinalScreen;
+    }
+
+    void ShowFinalScreen(float finalTime)
+    {
+        finalScreenCanvas.SetActive(true);
+        finalCanvasTimer.text = finalTime.ToString("F2");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     #endregion

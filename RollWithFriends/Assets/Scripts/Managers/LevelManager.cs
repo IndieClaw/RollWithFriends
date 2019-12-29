@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     #region Fields and properties
     public static event Action OnLevelStarted = delegate { };
+    public static event Action<float> OnLevelEnded = delegate { };
 
     [SerializeField] string levelName;
 
@@ -102,7 +103,8 @@ public class LevelManager : MonoBehaviour
     void OnPlayerReachedEnd(PlayerController player)
     {
         canIncrementLevelTimer = false;
-        print(levelTimer);
+        OnLevelEnded(levelTimer);
+        
     }
 
     void LevelStarted()

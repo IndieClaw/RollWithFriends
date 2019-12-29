@@ -37,7 +37,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        if (lastCheckpointReached != null)
+        if (lastCheckpointReached != null
+            && lastCheckpointReached.respawnPoint != null)
         {
             transform.position =
                 lastCheckpointReached.respawnPoint.transform.position;
@@ -52,6 +53,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Freeze()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constants.TagCheckpoint))
@@ -61,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
             if (cp.checkpointType == Checkpoint.CheckpointType.End)
             {
+                Freeze();
                 OnPlayerReachedEnd(this);
             }
         }
