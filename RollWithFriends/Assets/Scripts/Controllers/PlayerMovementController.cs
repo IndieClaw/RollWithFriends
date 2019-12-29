@@ -6,9 +6,10 @@ public class PlayerMovementController : MonoBehaviour
 {
     #region Fields and properties
     [SerializeField] private float speed = 8;
+
     [SerializeField] private int jumpForce = 300;
 
-    [SerializeField] private Rigidbody rb;    
+    [SerializeField] private Rigidbody rb;
 
     bool isMoving = false;
     bool canMove = false;
@@ -31,18 +32,19 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
-        if(!canMove)
+        if (!canMove)
             return;
 
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
         }
-       
+
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             isMoving = true;
-        }else
+        }
+        else
         {
             isMoving = false;
         }
@@ -50,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!canMove)
+        if (!canMove)
             return;
 
         if (isMoving)
@@ -58,15 +60,15 @@ public class PlayerMovementController : MonoBehaviour
             Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
 
-    }    
-
-    private void OnDisable() 
-    {
-        UnSubscribeEvents();
-        
     }
 
-    private void OnDestroy() 
+    private void OnDisable()
+    {
+        UnSubscribeEvents();
+
+    }
+
+    private void OnDestroy()
     {
         UnSubscribeEvents();
     }
@@ -74,11 +76,18 @@ public class PlayerMovementController : MonoBehaviour
     private void SubscribeEvents()
     {
         LevelManager.OnLevelStarted += AllowMovement;
+        PlayerController.OnPlayerResetLevel += RestrictMovement;
     }
 
     private void UnSubscribeEvents()
     {
         LevelManager.OnLevelStarted -= AllowMovement;
+        PlayerController.OnPlayerResetLevel -= RestrictMovement;
+    }
+
+    private void RestrictMovement()
+    {
+        canMove = false;
     }
 
     private void AllowMovement()
@@ -124,6 +133,6 @@ public class PlayerMovementController : MonoBehaviour
             canJump = true;
         }
     }
- 
+
     #endregion
 }

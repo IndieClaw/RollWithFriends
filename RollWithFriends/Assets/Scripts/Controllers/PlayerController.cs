@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     public static event Action<PlayerController> OnPlayerReachedEnd = delegate { };
 
+    public static event Action OnPlayerResetLevel = delegate { };
+
     #endregion
 
     #region Public methods
@@ -30,12 +32,33 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown(Constants.ButtonResetLevel))
+        {
+            OnPlayerResetLevel();
+            RestartAtStart();
+        }
+
+        if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
+        {
+            RespawnAtLastCheckpoint();
+        }
 
     }
-    void Respawn()
+
+    void RestartAtStart()
     {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        Freeze(false);
+
+        transform.position =
+            GameObject.FindObjectsOfType<Checkpoint>()
+                .Where(c => c.checkpointType == Checkpoint.CheckpointType.Start)
+                .FirstOrDefault()
+                .respawnPoint.transform.position;
+    }
+
+    void RespawnAtLastCheckpoint()
+    {
+        Freeze(false);
 
         if (lastCheckpointReached != null
             && lastCheckpointReached.respawnPoint != null)
@@ -45,19 +68,15 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.position =
-                GameObject.FindObjectsOfType<Checkpoint>()
-                    .Where(c => c.checkpointType == Checkpoint.CheckpointType.Start)
-                    .FirstOrDefault()
-                    .respawnPoint.transform.position;
+            RestartAtStart();
         }
     }
 
-    private void Freeze()
+    private void Freeze(bool isKinematic)
     {
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
+        rb.isKinematic = isKinematic;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,14 +88,14 @@ public class PlayerController : MonoBehaviour
 
             if (cp.checkpointType == Checkpoint.CheckpointType.End)
             {
-                Freeze();
+                Freeze(true);
                 OnPlayerReachedEnd(this);
             }
         }
 
         if (other.CompareTag(Constants.TagDeath))
         {
-            Respawn();
+            RespawnAtLastCheckpoint();
         }
     }
 

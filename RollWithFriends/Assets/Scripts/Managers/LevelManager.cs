@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] string levelName;
 
     byte startingCountdownTime = 3;
-    WaitForSeconds waitForOneSecond;
+    WaitForSeconds waitForSecondCountDown;
 
     [SerializeField] GameObject playerPrefab;
 
@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
     {
         SubscribeEvents();
 
-        waitForOneSecond = new WaitForSeconds(1);
+        waitForSecondCountDown = new WaitForSeconds(0.35f);
 
         startingCheckpoint = GameObject.FindObjectsOfType<Checkpoint>()
             .Where(c =>
@@ -85,11 +85,13 @@ public class LevelManager : MonoBehaviour
     private void SubscribeEvents()
     {
         PlayerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
+        PlayerController.OnPlayerResetLevel += ResetLevel;
     }
 
     private void UnSubscribeEvents()
     {
         PlayerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
+        PlayerController.OnPlayerResetLevel -= ResetLevel;
     }
 
     void InstantiatePlayer()
@@ -107,10 +109,19 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    void ResetLevel()
+    {
+        levelTimer = 0;
+        timerTextMesh.text = "0.00";
+
+        canIncrementLevelTimer = false;
+        StartCountdownTimer();
+    }
+
     void LevelStarted()
     {
         canIncrementLevelTimer = true;
-    }
+    }    
 
     void StartCountdownTimer()
     {
@@ -139,7 +150,7 @@ public class LevelManager : MonoBehaviour
                     yield return null;
                 }
 
-                yield return waitForOneSecond;
+                yield return waitForSecondCountDown;
 
             }
         }

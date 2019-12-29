@@ -12,4 +12,10 @@ public static class Constants
     public const string TagDeath = "Death";
 
     #endregion
+
+    #region Buttons
+    public const string ButtonResetLevel = "ResetLevel";
+    public const string ButtonResetCheckpoint = "ResetCheckpoint";
+        
+    #endregion
 }
