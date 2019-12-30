@@ -3616,7 +3616,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48838
+  m_Name: pb_Mesh27432
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8227,6 +8227,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasTimer
       objectReference: {fileID: 0}
+    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6588424392028300646, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8330,26 +8350,6 @@ PrefabInstance:
     - target: {fileID: 6588424392028300646, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6588424391576584337, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10707,7 +10707,7 @@ PrefabInstance:
     - target: {fileID: 2468435143987190984, guid: 4e2c7716ee68b6f42a139582d75212d0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.12
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2468435143987190984, guid: 4e2c7716ee68b6f42a139582d75212d0,
         type: 3}
