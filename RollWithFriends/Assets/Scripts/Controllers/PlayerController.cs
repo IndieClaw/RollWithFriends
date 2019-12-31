@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     void RestartAtStart()
     {
         Freeze(false);
-
+        lastCheckpointReached = null;
         transform.position =
             GameObject.FindObjectsOfType<Checkpoint>()
                 .Where(c => c.checkpointType == Checkpoint.CheckpointType.Start)
