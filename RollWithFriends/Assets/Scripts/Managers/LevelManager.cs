@@ -49,13 +49,20 @@ public class LevelManager : MonoBehaviour
 
         waitForSecondCountDown = new WaitForSeconds(0.35f);
 
-        startingCheckpoint = GameObject.FindObjectsOfType<Checkpoint>()
+        var startingCp = GameObject.FindObjectsOfType<Checkpoint>()
             .Where(c =>
                 c.checkpointType == Checkpoint.CheckpointType.Start)
-                .FirstOrDefault().transform.position;
+            .FirstOrDefault();
 
-        InitializeLevel();
-
+        if (startingCp == null)
+        {
+            Debug.LogError("The starting checkpoint is null, please add it to the level");            
+        }
+        else
+        {
+            startingCheckpoint = startingCp.transform.position;                
+            InitializeLevel();
+        }
     }
 
     void Update()
