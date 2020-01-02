@@ -54,11 +54,13 @@ public class UIManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
+        LevelManager.OnLevelStarted += HideFinalScreen;
         LevelManager.OnLevelEnded += ShowFinalScreen;
     }
 
     private void UnSubscribeEvents()
     {
+        LevelManager.OnLevelStarted -= HideFinalScreen;
         LevelManager.OnLevelEnded -= ShowFinalScreen;
     }
 
@@ -68,6 +70,14 @@ public class UIManager : MonoBehaviour
         finalCanvasTimer.text = finalTime.ToString("F2");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    void HideFinalScreen()
+    {
+        finalScreenCanvas.SetActive(false);
+        finalCanvasTimer.text = "0.00";
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     #endregion
