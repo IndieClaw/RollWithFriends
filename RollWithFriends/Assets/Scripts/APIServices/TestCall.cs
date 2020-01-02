@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -24,7 +23,18 @@ public class TestCall : MonoBehaviour
 
     void Start()
     {
-        print(GetUserTest().Name);
+        try
+        {
+            var u = GetUserTest();
+            print(u.Name);
+            
+        }
+        catch (System.Exception)
+        {
+            
+            Debug.LogError("Somethind went wrong fetching the user.");
+            throw;
+        }        
     }
 
     void Update()
@@ -33,9 +43,12 @@ public class TestCall : MonoBehaviour
     }
 
     User GetUserTest()
-    {        
-        var data = _client.GetStringAsync($"{_remoteUrl}/user/1").Result;
-        return JsonConvert.DeserializeObject<User>(data);        
+    {
+        string data;
+
+        data = _client.GetStringAsync($"{_remoteUrl}/user/1").Result;
+        
+        return JsonConvert.DeserializeObject<User>(data);
     }
 
     #endregion
@@ -44,7 +57,7 @@ public class BaseEntity
 {
     public BaseEntity()
     {
-        
+
     }
 
     public BaseEntity(string unityCustomTokenAPI)
@@ -58,14 +71,14 @@ public class BaseEntity
 }
 
 public class User : BaseEntity
-{    
+{
 
     public string Name { get; set; }
 
-    
+
     public User()
     {
 
     }
-    
+
 }
