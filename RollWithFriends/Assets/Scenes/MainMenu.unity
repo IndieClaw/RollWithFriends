@@ -2825,8 +2825,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createUserCanvas: {fileID: 52944479}
   errorMessage: {fileID: 2057778932}
-  confirmationWindow: {fileID: 0}
+  confirmationWindow: {fileID: 1833903137}
   userNameTextMesh: {fileID: 390512320}
+  errorMessageTextMesh: {fileID: 1769586556}
 --- !u!4 &1499109277
 Transform:
   m_ObjectHideFlags: 0
@@ -3092,7 +3093,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: '- invalid user name -'
+  m_text: ' '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 78d39fe31beaafc4db0eca6efc2fc484, type: 2}

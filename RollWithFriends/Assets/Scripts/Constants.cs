@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class Constants
 {
+
+    public const string ApiUrl = "https://rollwithfriendsapp.azurewebsites.net";
+    public const string UnityCustomTokenAPI = "245gjyu897hy8245gt25bgt76y89hu45gy8701012020";
+
     #region Tags
 
     public const string TagPlayer = "Player";
@@ -16,14 +20,21 @@ public static class Constants
     #region Buttons
     public const string ButtonResetLevel = "ResetLevel";
     public const string ButtonResetCheckpoint = "ResetCheckpoint";
-        
+
     #endregion
 
     #region Regex
-    public const string RegexUserName =  "(^[a-zA-Z0-9]{3,16})$";
+    public const string RegexUserName = "(^[a-zA-Z0-9]{3,16})$";
     #endregion
 
     #region PlayerPrefs
-        public const string PlayerPrefKeyUser = "User";
+    public const string PlayerPrefKeyUser = "User";
+
+    #endregion
+
+    #region API URL CALLS
+    // USER
+    public const string ApiServiceUserCreate = "/user/create";
+    public const string ApiServiceUserDoesUserExist = "/user/DoesUserExist/{0}";
     #endregion
 }
