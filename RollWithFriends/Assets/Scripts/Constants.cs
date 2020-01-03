@@ -18,4 +18,12 @@ public static class Constants
     public const string ButtonResetCheckpoint = "ResetCheckpoint";
         
     #endregion
+
+    #region Regex
+    public const string RegexUserName =  "(^[a-zA-Z0-9]{3,16})$";
+    #endregion
+
+    #region PlayerPrefs
+        public const string PlayerPrefKeyUser = "User";
+    #endregion
 }
