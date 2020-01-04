@@ -13,10 +13,14 @@ public class UserCreationController : MonoBehaviour
     #region Fields and properties
     [SerializeField] GameObject createUserCanvas;
     [SerializeField] GameObject errorMessage;
-    [SerializeField] GameObject confirmationWindow;
+    [SerializeField] GameObject welcomeWindow;
+
     [SerializeField] TMP_InputField userNameTextMesh;
 
     [SerializeField] TextMeshProUGUI errorMessageTextMesh;
+    [SerializeField] TextMeshProUGUI welcomeTextMesh;
+
+    
     private static readonly HttpClient _client = new HttpClient();
     #endregion
 
@@ -29,31 +33,8 @@ public class UserCreationController : MonoBehaviour
 
         if (isMatch)
         {
-            try
-            {   
-                var serviceUrl = string.Format(Constants.ApiServiceUserDoesUserExist, userNameTextMesh.text);
-
-                var doesUserAlreadyExist = bool.Parse(
-                    _client.GetStringAsync($"{Constants.ApiUrl + serviceUrl}").Result);
-
-                if (doesUserAlreadyExist)
-                {
-                    throw (new System.Exception("That user already exists"));
-                }
-                else
-                {
-                    createUserCanvas.SetActive(false);
-
-                    // Local function
-                    PostUser();
-                }
-            }
-            catch (System.Exception e)
-            {
-                // If user already exists or something wene wrong throw here                
-                ShowErrorMessage(e.Message);
-                throw;
-            }
+            PostUser();            
+            
         }
         else
         {
@@ -65,12 +46,27 @@ public class UserCreationController : MonoBehaviour
         /// </summary>
         void PostUser()
         {
-            var user = new User(userNameTextMesh.text, Constants.UnityCustomTokenAPI);
-            string userJson = JsonConvert.SerializeObject(user);
-            var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
+            try
+            {
+                var user = new User(userNameTextMesh.text, Constants.UnityCustomTokenAPI);
+                string userJson = JsonConvert.SerializeObject(user);
+                var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
 
-            _client.PostAsync($"{Constants.ApiUrl + Constants.ApiServiceUserCreate}", content);
-            PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, userNameTextMesh.text);
+                var response = _client.PostAsync(
+                    $"{Constants.ApiUrl + Constants.ApiServiceUserCreate}",
+                    content)
+                    .Result;
+
+                response.EnsureSuccessStatusCode();
+
+                PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, userNameTextMesh.text);
+                StartCoroutine(WelcomeUserRoutine(userNameTextMesh.text));
+
+            }
+            catch (System.Exception)
+            {
+                ShowErrorMessage("That user already exists");
+            }
         }
     }
 
@@ -81,7 +77,7 @@ public class UserCreationController : MonoBehaviour
 
     void Start()
     {
-        //PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
+        PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
 
         if (!PlayerPrefs.HasKey(Constants.PlayerPrefKeyUser))
         {
@@ -91,7 +87,7 @@ public class UserCreationController : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     void ShowErrorMessage(string message)
@@ -100,5 +96,15 @@ public class UserCreationController : MonoBehaviour
         errorMessageTextMesh.text = message;
     }
 
+    IEnumerator WelcomeUserRoutine(string userName)
+    {
+        welcomeWindow.SetActive(true);
+        welcomeTextMesh.text =  "Welcome " + userName + "!";
+
+        yield return new WaitForSeconds(2f);
+
+        welcomeWindow.SetActive(false);
+        createUserCanvas.SetActive(false);
+    }
     #endregion
 }

@@ -2825,9 +2825,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createUserCanvas: {fileID: 52944479}
   errorMessage: {fileID: 2057778932}
-  confirmationWindow: {fileID: 1833903137}
+  welcomeWindow: {fileID: 1833903137}
   userNameTextMesh: {fileID: 390512320}
   errorMessageTextMesh: {fileID: 1769586556}
+  welcomeTextMesh: {fileID: 793053104}
 --- !u!4 &1499109277
 Transform:
   m_ObjectHideFlags: 0
@@ -3203,7 +3204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833903138}
   m_Layer: 5
-  m_Name: ConfirmationWindow
+  m_Name: WelcomeWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

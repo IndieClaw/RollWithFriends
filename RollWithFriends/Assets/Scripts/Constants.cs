@@ -34,7 +34,6 @@ public static class Constants
 
     #region API URL CALLS
     // USER
-    public const string ApiServiceUserCreate = "/user/create";
-    public const string ApiServiceUserDoesUserExist = "/user/DoesUserExist/{0}";
+    public const string ApiServiceUserCreate = "/user/create";    
     #endregion
 }
