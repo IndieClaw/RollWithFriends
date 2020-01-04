@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public static event Action<PlayerController> OnPlayerReachedEnd = delegate { };
 
     public static event Action OnPlayerResetLevel = delegate { };
+    bool endedLevel;
 
     #endregion
 
@@ -40,13 +41,17 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
         {
-            RespawnAtLastCheckpoint();
+            if (!endedLevel)
+            {                
+                RespawnAtLastCheckpoint();
+            }
         }
 
     }
 
     void RestartAtStart()
     {
+        endedLevel = false;
         Freeze(false);
         lastCheckpointReached = null;
         transform.position =
@@ -89,6 +94,7 @@ public class PlayerController : MonoBehaviour
             if (cp.checkpointType == Checkpoint.CheckpointType.End)
             {
                 Freeze(true);
+                endedLevel = true;
                 OnPlayerReachedEnd(this);
             }
         }
