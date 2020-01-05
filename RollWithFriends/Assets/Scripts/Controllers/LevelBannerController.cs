@@ -8,9 +8,10 @@ public class LevelBannerController : MonoBehaviour
 {
     #region Fields and properties
     [SerializeField] string levelName;
-    [SerializeField] string sceneToLoad;
+    [SerializeField] string sceneNameToLoad;
 
     [SerializeField] Image levelImage;
+    [SerializeField] Sprite levelBannerImage;
 
     [SerializeField] TextMeshProUGUI personalBestTimeTextMesh;
 
@@ -26,13 +27,14 @@ public class LevelBannerController : MonoBehaviour
     #region Private methods	
     void SetPersonalBest()
     {
-        personalBestTimeTextMesh.text = PlayerPrefs.GetFloat("level_" + levelName).ToString();
+        personalBestTimeTextMesh.text = 
+            PlayerPrefs.GetFloat(sceneNameToLoad).ToString();
     }
 
     void SetFirstRankTime()
     {
         // TODO JS: call HighscoreService here.
-        firstRankTimeTextMesh.text = "0";
+        firstRankTimeTextMesh.text = "0.00";
 
     }
 
