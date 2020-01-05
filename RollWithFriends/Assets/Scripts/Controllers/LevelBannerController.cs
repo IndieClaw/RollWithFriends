@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelBannerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class LevelBannerController : MonoBehaviour
 
     [SerializeField] Image levelImage;
     [SerializeField] Sprite levelBannerImage;
+    [SerializeField] TextMeshProUGUI levelNameTextMesh;
 
     [SerializeField] TextMeshProUGUI personalBestTimeTextMesh;
 
@@ -20,14 +22,19 @@ public class LevelBannerController : MonoBehaviour
     #endregion
 
     #region Public methods
-
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene("_Game", LoadSceneMode.Additive);
+        SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Additive);
+        // TODO JS: unload levelselection scene
+    }
     #endregion
 
 
     #region Private methods	
     void SetPersonalBest()
     {
-        personalBestTimeTextMesh.text = 
+        personalBestTimeTextMesh.text =
             PlayerPrefs.GetFloat(sceneNameToLoad).ToString();
     }
 
@@ -38,8 +45,14 @@ public class LevelBannerController : MonoBehaviour
 
     }
 
+    void SetLevelName()
+    {
+        levelNameTextMesh.text = levelName;
+    }
+
     void Start()
     {
+        SetLevelName();
         SetPersonalBest();
         SetFirstRankTime();
     }
