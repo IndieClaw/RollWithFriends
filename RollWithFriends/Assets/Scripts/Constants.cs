@@ -8,6 +8,12 @@ public static class Constants
     public const string ApiUrl = "https://rollwithfriendsapp.azurewebsites.net";
     public const string UnityCustomTokenAPI = "245gjyu897hy8245gt25bgt76y89hu45gy8701012020";
 
+    #region SceneNames
+
+    public const string SceneNameGame = "_Game";    
+    public const string SceneNameLevelSelection = "LevelSelection";    
+    #endregion
+
     #region Tags
 
     public const string TagPlayer = "Player";

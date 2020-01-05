@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -34,14 +35,16 @@ public class LevelManager : MonoBehaviour
 
     public void InitializeLevel()
     {
-        StartCountdownTimer();
-        InstantiatePlayer();
+        StartCoroutine(InstantiatePlayerRoutine());
     }
 
     #endregion
 
 
     #region Private methods	
+    private void Awake()
+    {
+    }
 
     void Start()
     {
@@ -56,11 +59,11 @@ public class LevelManager : MonoBehaviour
 
         if (startingCp == null)
         {
-            Debug.LogError("The starting checkpoint is null, please add it to the level");            
+            Debug.LogError("The starting checkpoint is null, please add it to the level");
         }
         else
         {
-            startingCheckpoint = startingCp.transform.position;                
+            startingCheckpoint = startingCp.transform.position;
             InitializeLevel();
         }
     }
@@ -74,7 +77,7 @@ public class LevelManager : MonoBehaviour
             if (timerTextMesh != null)
             {
                 timerTextMesh.text = levelTimer.ToString("F2");
-            }                
+            }
         }
     }
 
@@ -101,19 +104,23 @@ public class LevelManager : MonoBehaviour
         PlayerController.OnPlayerResetLevel -= ResetLevel;
     }
 
-    void InstantiatePlayer()
+    IEnumerator InstantiatePlayerRoutine()
     {
+        yield return new WaitForSeconds(0.1f);
+
         Instantiate(
             original: playerPrefab,
              position: startingCheckpoint,
               rotation: Quaternion.identity);
+
+        StartCountdownTimer();
     }
 
     void OnPlayerReachedEnd(PlayerController player)
     {
         canIncrementLevelTimer = false;
         OnLevelEnded(levelTimer);
-        
+
     }
 
     void ResetLevel()
@@ -128,7 +135,7 @@ public class LevelManager : MonoBehaviour
     void LevelStarted()
     {
         canIncrementLevelTimer = true;
-    }    
+    }
 
     void StartCountdownTimer()
     {

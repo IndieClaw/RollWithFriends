@@ -22,16 +22,31 @@ public class LevelBannerController : MonoBehaviour
     #endregion
 
     #region Public methods
-    public void LoadLevel()
+    public void LoadLevelAsync()
     {
-        SceneManager.LoadScene("_Game", LoadSceneMode.Additive);
-        SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Additive);
-        // TODO JS: unload levelselection scene
+        StartCoroutine(LoadLevelAsyncRoutine());
+
     }
     #endregion
 
 
     #region Private methods	
+
+    void Start()
+    {
+        SetLevelName();
+        SetPersonalBest();
+        SetFirstRankTime();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            SceneManager.UnloadSceneAsync("LevelSelection");
+        }
+    }
+
     void SetPersonalBest()
     {
         personalBestTimeTextMesh.text =
@@ -50,16 +65,43 @@ public class LevelBannerController : MonoBehaviour
         levelNameTextMesh.text = levelName;
     }
 
-    void Start()
-    {
-        SetLevelName();
-        SetPersonalBest();
-        SetFirstRankTime();
-    }
 
-    void Update()
+    IEnumerator LoadLevelAsyncRoutine()
     {
+        yield return null;
 
+        AsyncOperation levelAsync = SceneManager.LoadSceneAsync(sceneNameToLoad, LoadSceneMode.Additive);
+
+        levelAsync.allowSceneActivation = false;
+
+        while (!levelAsync.isDone)
+        {
+            if (levelAsync.progress >= 0.9f)
+            {
+                levelAsync.allowSceneActivation = true;
+
+            }
+
+            yield return null;
+        }
+
+        AsyncOperation gameAsync = SceneManager.LoadSceneAsync(Constants.SceneNameGame, LoadSceneMode.Additive);
+        gameAsync.allowSceneActivation = false;
+
+        while (!gameAsync.isDone)
+        {
+            if (gameAsync.progress >= 0.9f)
+            {
+                gameAsync.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+
+        var gameScene = SceneManager.GetSceneByName(Constants.SceneNameGame);
+        SceneManager.SetActiveScene(gameScene);
+        SceneManager.UnloadSceneAsync(Constants.SceneNameLevelSelection);
+
+        yield return null;
     }
 
     #endregion
