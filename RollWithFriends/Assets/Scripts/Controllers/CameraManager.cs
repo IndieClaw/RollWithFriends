@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -34,9 +35,8 @@ public class CameraManager : MonoBehaviour
     float lookAngle;
     float tiltAngle = 20;
 
-    Transform obstruction;
-    Material obstructionMaterial;
-    MeshRenderer meshRenderer;
+    Dictionary<Transform, Material> obstructionDictionary = new Dictionary<Transform, Material>();
+
     [SerializeField] Material transparencyMaterial;
 
     #endregion
@@ -79,7 +79,7 @@ public class CameraManager : MonoBehaviour
             FollowTarget();
             HandleRotations(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight"));
             HandleRotations(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            HandleMeshTransparency();
+            HandleMeshTransparencyAll();
         }
     }
 
@@ -109,36 +109,39 @@ public class CameraManager : MonoBehaviour
         pivot.localRotation = Quaternion.Euler(tiltAngle, 0, 0);
     }
 
-    void HandleMeshTransparency()
+    void HandleMeshTransparencyAll()
     {
-        RaycastHit hit;
-
         var dir = target.position - pivot.transform.position;
         dir.Normalize();
 
-        if (Physics.Raycast(pivot.transform.position, dir * 10, out hit, 4.5f))
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(origin: pivot.transform.position, direction: dir * 10, maxDistance: 4.5f);
+
+        if (hits.Any())
         {
-            if (hit.collider.gameObject != null)
+            foreach (var obj in hits)
             {
-                // Save the material for the object, if the raycast is collidig with the same object we dont want to get the mat.                
-                if (obstruction != hit.transform)
+                if (!obstructionDictionary.ContainsKey(obj.transform))
                 {
-                    meshRenderer = hit.transform.gameObject.GetComponent<MeshRenderer>();
-                    obstructionMaterial = meshRenderer.material;
+                    var mesh = obj.transform.gameObject.GetComponent<MeshRenderer>();
+                    obstructionDictionary.Add(obj.transform, mesh.material);
+                    mesh.material = transparencyMaterial;
+                    mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                 }
-
-                obstruction = hit.transform;
-
-                meshRenderer.material = transparencyMaterial;
-                meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             }
         }
         else
         {
-            if (meshRenderer != null)
+            if (obstructionDictionary.Any())
             {
-                meshRenderer.material = obstructionMaterial;
-                meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                foreach (var obs in obstructionDictionary)
+                {
+                    var mesh = obs.Key.GetComponent<MeshRenderer>();
+                    mesh.material = obs.Value;
+                    mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                }
+
+                obstructionDictionary.Clear();
             }
         }
     }
