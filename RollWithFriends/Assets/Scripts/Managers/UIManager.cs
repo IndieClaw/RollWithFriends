@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     #region Fields and properties
-    public static UIManager instance;
 
     [SerializeField] TextMeshProUGUI finalCanvasTimer;
     [SerializeField] GameObject finalScreenCanvas;
@@ -14,24 +14,20 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public methods
-
+ 
+    public void GoToLevelSelection()
+    {
+        SceneManager.LoadScene(Constants.SceneNameLevelSelection);
+    }
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
     #endregion
 
 
     #region Private methods	
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(this);
-    }
+ 
     void Start()
     {
         SubscribeEvents();
@@ -66,7 +62,10 @@ public class UIManager : MonoBehaviour
 
     void ShowFinalScreen(float finalTime)
     {
-        finalScreenCanvas.SetActive(true);
+        if(finalScreenCanvas != null)
+        {
+            finalScreenCanvas.SetActive(true);
+        }
         finalCanvasTimer.text = finalTime.ToString("F2");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -74,7 +73,10 @@ public class UIManager : MonoBehaviour
 
     void HideFinalScreen()
     {
-        finalScreenCanvas.SetActive(false);
+        if (finalScreenCanvas != null)
+        {            
+            finalScreenCanvas.SetActive(false);
+        }
         finalCanvasTimer.text = "0.00";
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

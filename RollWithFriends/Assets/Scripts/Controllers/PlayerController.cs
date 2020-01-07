@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        SubscriveEvents();
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown(Constants.ButtonResetLevel))
         {
             OnPlayerResetLevel();
-            RestartAtStart();
+            
         }
 
         if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
@@ -47,6 +47,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    void SubscriveEvents()
+    {
+        LevelManager.OnLevelWasReset += RestartAtStart;
+    }
+
+    void UnsubscriveEvents()
+    {
+        LevelManager.OnLevelWasReset -= RestartAtStart;
     }
 
     void RestartAtStart()

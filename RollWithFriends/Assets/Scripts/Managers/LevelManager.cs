@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     #region Fields and properties
+    public static event Action OnLevelWasReset = delegate { };
     public static event Action OnLevelStarted = delegate { };
     public static event Action<float> OnLevelEnded = delegate { };
 
@@ -37,6 +38,17 @@ public class LevelManager : MonoBehaviour
     {
         StartCoroutine(InstantiatePlayerRoutine());
     }
+
+    public void ResetLevel()
+    {
+        OnLevelWasReset();
+        levelTimer = 0;
+        timerTextMesh.text = "0.00";
+
+        canIncrementLevelTimer = false;
+        StartCountdownTimer();
+    }
+
 
     #endregion
 
@@ -121,15 +133,6 @@ public class LevelManager : MonoBehaviour
         canIncrementLevelTimer = false;
         OnLevelEnded(levelTimer);
 
-    }
-
-    void ResetLevel()
-    {
-        levelTimer = 0;
-        timerTextMesh.text = "0.00";
-
-        canIncrementLevelTimer = false;
-        StartCountdownTimer();
     }
 
     void LevelStarted()
