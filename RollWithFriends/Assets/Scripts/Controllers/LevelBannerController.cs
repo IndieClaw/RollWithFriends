@@ -9,6 +9,7 @@ public class LevelBannerController : MonoBehaviour
 {
     #region Fields and properties
     [SerializeField] string levelName;
+    [SerializeField] string levelCodeName;
     [SerializeField] string sceneNameToLoad;
 
     [SerializeField] Image levelImage;
@@ -17,6 +18,7 @@ public class LevelBannerController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI personalBestTimeTextMesh;
 
+    [SerializeField] TextMeshProUGUI firstRankUserTextMesh;
     [SerializeField] TextMeshProUGUI firstRankTimeTextMesh;
 
     #endregion
@@ -54,9 +56,18 @@ public class LevelBannerController : MonoBehaviour
     }
 
     void SetFirstRankTime()
-    {
-        // TODO JS: call HighscoreService here.
-        firstRankTimeTextMesh.text = "0.00";
+    {        
+        var bestScore = HighscoreService.GetBestScoreForLevel(levelCodeName, GameManager.instance.client);
+
+        if (bestScore != null)
+        {   
+            firstRankUserTextMesh.text = bestScore.User.Name;
+            firstRankTimeTextMesh.text = bestScore.Time.ToString();         
+        }
+        else
+        {            
+            firstRankTimeTextMesh.text = "0.00";
+        }
 
     }
 

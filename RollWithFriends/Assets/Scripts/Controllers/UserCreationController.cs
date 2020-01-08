@@ -19,9 +19,9 @@ public class UserCreationController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI errorMessageTextMesh;
     [SerializeField] TextMeshProUGUI welcomeTextMesh;
+    [SerializeField] TextMeshProUGUI welcomeExistingUserTextMesh;
 
     
-    private static readonly HttpClient _client = new HttpClient();
     #endregion
 
     #region Public methods
@@ -33,40 +33,19 @@ public class UserCreationController : MonoBehaviour
 
         if (isMatch)
         {
-            PostUser();            
-            
+            try
+            {
+                UserService.CreateUser(userNameTextMesh.text, GameManager.instance.client);
+                StartCoroutine(WelcomeCreatedUserRoutine(userNameTextMesh.text));
+            }
+            catch (System.Exception ex)
+            {
+                ShowErrorMessage(ex.Message);
+            }
         }
         else
         {
             ShowErrorMessage("- invalid username -");
-        }
-
-        /// <summary>
-        /// Creates a user on the database and sets the playerprefs key
-        /// </summary>
-        void PostUser()
-        {
-            try
-            {
-                var user = new User(userNameTextMesh.text, Constants.UnityCustomTokenAPI);
-                string userJson = JsonConvert.SerializeObject(user);
-                var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
-
-                var response = _client.PostAsync(
-                    $"{Constants.ApiUrl + Constants.ApiServiceUserCreate}",
-                    content)
-                    .Result;
-
-                response.EnsureSuccessStatusCode();
-
-                PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, userNameTextMesh.text);
-                StartCoroutine(WelcomeUserRoutine(userNameTextMesh.text));
-
-            }
-            catch (System.Exception)
-            {
-                ShowErrorMessage("That user already exists");
-            }
         }
     }
 
@@ -77,17 +56,21 @@ public class UserCreationController : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
-
+        //PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
+        //PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, "master");
         if (!PlayerPrefs.HasKey(Constants.PlayerPrefKeyUser))
         {
             createUserCanvas.SetActive(true);
+        }
+        else
+        {
+            WelcomeExistingUser();
         }
     }
 
     void Update()
     {
-        
+
     }
 
     void ShowErrorMessage(string message)
@@ -96,15 +79,20 @@ public class UserCreationController : MonoBehaviour
         errorMessageTextMesh.text = message;
     }
 
-    IEnumerator WelcomeUserRoutine(string userName)
+    IEnumerator WelcomeCreatedUserRoutine(string userName)
     {
         welcomeWindow.SetActive(true);
-        welcomeTextMesh.text =  "Welcome " + userName + "!";
+        welcomeTextMesh.text = "Welcome " + userName + "!";
 
         yield return new WaitForSeconds(2f);
-
+        WelcomeExistingUser();
         welcomeWindow.SetActive(false);
         createUserCanvas.SetActive(false);
+    }
+
+    void WelcomeExistingUser()
+    {
+        welcomeExistingUserTextMesh.text = "Welcome " + PlayerPrefs.GetString(Constants.PlayerPrefKeyUser);
     }
     #endregion
 }

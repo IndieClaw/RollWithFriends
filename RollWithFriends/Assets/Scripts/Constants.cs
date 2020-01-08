@@ -41,5 +41,9 @@ public static class Constants
     #region API URL CALLS
     // USER
     public const string ApiServiceUserCreate = "/user/create";    
+
+    // Hihghscore
+    public const string ApiServiceHighscoreGetBestForLevel = "/highscore/GetBestScoreForLevel/{0}";
+    
     #endregion
 }
