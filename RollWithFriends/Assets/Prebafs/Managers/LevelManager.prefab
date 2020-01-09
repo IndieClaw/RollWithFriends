@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab968cd7ed9a5934d96d7f0ef7efffd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: The intro
+  levelName: 
+  levelCodeName: 
   playerPrefab: {fileID: 7527851435863875079, guid: d5bfc149edbbe1d46a268859da662483,
     type: 3}
+  isInDevelopmentMode: 1
+  timerTextMesh: {fileID: 0}

@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
         LevelManager.OnLevelEnded -= ShowFinalScreen;
     }
 
-    void ShowFinalScreen(float finalTime)
+    void ShowFinalScreen(string levelName, string levelCodeName, float finalTime)
     {
         if(finalScreenCanvas != null)
         {

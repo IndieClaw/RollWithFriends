@@ -54,16 +54,16 @@ public class LevelBannerController : MonoBehaviour
     }
 
     void GetFirstRankTimeData()
-    {        
+    {
         var bestScore = HighscoreService.GetBestScoreForLevel(levelCodeName, GameManager.instance.client);
 
         if (bestScore != null)
-        {   
+        {
             firstRankUserTextMesh.text = bestScore.User.Name;
-            firstRankTimeTextMesh.text = bestScore.Time.ToString();         
+            firstRankTimeTextMesh.text = bestScore.Time.ToString();
         }
         else
-        {            
+        {
             firstRankTimeTextMesh.text = "0.00";
         }
 
@@ -74,6 +74,15 @@ public class LevelBannerController : MonoBehaviour
         levelNameTextMesh.text = levelName;
     }
 
+    void UpdateLevelManager()
+    {
+        var levelManager = FindObjectOfType<LevelManager>();
+
+        if (levelManager != null)
+        {
+            levelManager.SetLevelNameData(levelName, levelCodeName);
+        }
+    }
 
     IEnumerator LoadLevelAsyncRoutine()
     {
@@ -108,6 +117,7 @@ public class LevelBannerController : MonoBehaviour
 
         var gameScene = SceneManager.GetSceneByName(Constants.SceneNameGame);
         SceneManager.SetActiveScene(gameScene);
+        UpdateLevelManager();
         SceneManager.UnloadSceneAsync(Constants.SceneNameLevelSelection);
 
         yield return null;

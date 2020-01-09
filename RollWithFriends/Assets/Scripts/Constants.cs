@@ -44,6 +44,7 @@ public static class Constants
 
     // Hihghscore
     public const string ApiServiceHighscoreGetBestForLevel = "/highscore/GetBestScoreForLevel/{0}";
+    public const string ApiServiceHighscoreCreate = "/highscore/create";
     
     #endregion
 }

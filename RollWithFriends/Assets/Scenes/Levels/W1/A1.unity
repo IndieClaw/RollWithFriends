@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465797, g: 0.49641418, b: 0.5748156, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657934, g: 0.49641466, b: 0.5748181, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,7 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 112000000, guid: 64ec5d7438932c64380b2cc05a6df399,
+  m_LightingDataAsset: {fileID: 112000000, guid: 36a4cb3b0d5a6d9418c1a0bc7a78b49e,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -3930,11 +3930,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint 3
       objectReference: {fileID: 0}
-    - target: {fileID: 9195068663605556415, guid: c4650dec67288f447be86337d741742d,
-        type: 3}
-      propertyPath: previousCheckpoint
-      value: 
-      objectReference: {fileID: 441482685}
     - target: {fileID: 3575709206678642557, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4015,6 +4010,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 722735535}
+    - target: {fileID: 9195068663605556415, guid: c4650dec67288f447be86337d741742d,
+        type: 3}
+      propertyPath: previousCheckpoint
+      value: 
+      objectReference: {fileID: 441482685}
     - target: {fileID: 98137163278256680, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: m_Mesh
@@ -5748,11 +5748,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint 2
       objectReference: {fileID: 0}
-    - target: {fileID: 9195068663605556415, guid: c4650dec67288f447be86337d741742d,
-        type: 3}
-      propertyPath: previousCheckpoint
-      value: 
-      objectReference: {fileID: 720931210}
     - target: {fileID: 3575709206678642557, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5833,16 +5828,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 719732197}
-    - target: {fileID: 98137163278256680, guid: c4650dec67288f447be86337d741742d,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 21856787}
-    - target: {fileID: 7685327095953970269, guid: c4650dec67288f447be86337d741742d,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 21856787}
     - target: {fileID: 5127551657262103647, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -5868,11 +5853,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9195068663605556415, guid: c4650dec67288f447be86337d741742d,
+        type: 3}
+      propertyPath: previousCheckpoint
+      value: 
+      objectReference: {fileID: 720931210}
     - target: {fileID: 2740200988426150858, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 98137163278256680, guid: c4650dec67288f447be86337d741742d,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 21856787}
+    - target: {fileID: 7685327095953970269, guid: c4650dec67288f447be86337d741742d,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 21856787}
     - target: {fileID: 1860509737542430836, guid: c4650dec67288f447be86337d741742d,
         type: 3}
       propertyPath: previousCheckpoint

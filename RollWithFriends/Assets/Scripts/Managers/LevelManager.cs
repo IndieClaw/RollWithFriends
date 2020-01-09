@@ -11,9 +11,11 @@ public class LevelManager : MonoBehaviour
     #region Fields and properties
     public static event Action OnLevelWasReset = delegate { };
     public static event Action OnLevelStarted = delegate { };
-    public static event Action<float> OnLevelEnded = delegate { };
+    public static event Action<string, string, float> OnLevelEnded = delegate { };
 
     [SerializeField] string levelName;
+
+    [SerializeField] string levelCodeName;
 
     byte startingCountdownTime = 3;
     WaitForSeconds waitForSecondCountDown;
@@ -34,8 +36,16 @@ public class LevelManager : MonoBehaviour
 
     #region Public methods
 
-    public void InitializeLevel()
+    public void SetLevelNameData(
+        string lvlName,
+        string lvlCodeName)
     {
+        levelName = lvlName;
+        levelCodeName = lvlCodeName;
+    }
+
+    public void InitializeLevel()
+    {        
         StartCoroutine(InstantiatePlayerRoutine());
     }
 
@@ -131,7 +141,7 @@ public class LevelManager : MonoBehaviour
     void OnPlayerReachedEnd(PlayerController player)
     {
         canIncrementLevelTimer = false;
-        OnLevelEnded(levelTimer);
+        OnLevelEnded(levelName, levelCodeName, levelTimer);
 
     }
 
