@@ -10,8 +10,6 @@ public class LevelBannerController : MonoBehaviour
     #region Fields and properties
     [SerializeField] string levelName;
     [SerializeField] string levelCodeName;
-    [SerializeField] string sceneNameToLoad;
-
     [SerializeField] Image levelImage;
     [SerializeField] Sprite levelBannerImage;
     [SerializeField] TextMeshProUGUI levelNameTextMesh;
@@ -37,8 +35,8 @@ public class LevelBannerController : MonoBehaviour
     void Start()
     {
         SetLevelName();
-        SetPersonalBest();
-        SetFirstRankTime();
+        GetPersonalBest();
+        GetFirstRankTimeData();
     }
 
     void Update()
@@ -49,13 +47,13 @@ public class LevelBannerController : MonoBehaviour
         }
     }
 
-    void SetPersonalBest()
+    void GetPersonalBest()
     {
         personalBestTimeTextMesh.text =
-            PlayerPrefs.GetFloat(sceneNameToLoad).ToString();
+            PlayerPrefs.GetFloat(levelCodeName).ToString();
     }
 
-    void SetFirstRankTime()
+    void GetFirstRankTimeData()
     {        
         var bestScore = HighscoreService.GetBestScoreForLevel(levelCodeName, GameManager.instance.client);
 
@@ -81,7 +79,7 @@ public class LevelBannerController : MonoBehaviour
     {
         yield return null;
 
-        AsyncOperation levelAsync = SceneManager.LoadSceneAsync(sceneNameToLoad, LoadSceneMode.Additive);
+        AsyncOperation levelAsync = SceneManager.LoadSceneAsync(levelCodeName, LoadSceneMode.Additive);
 
         levelAsync.allowSceneActivation = false;
 

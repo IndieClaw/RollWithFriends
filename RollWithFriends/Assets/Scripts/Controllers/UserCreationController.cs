@@ -55,9 +55,9 @@ public class UserCreationController : MonoBehaviour
     #region Private methods	
 
     void Start()
-    {
+    {        
         //PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
-        //PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, "master");
+        ///PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, "master");
         if (!PlayerPrefs.HasKey(Constants.PlayerPrefKeyUser))
         {
             createUserCanvas.SetActive(true);
