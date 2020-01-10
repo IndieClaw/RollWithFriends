@@ -29,6 +29,7 @@ namespace Models
             Id = id;
             LevelName = levelName;
             Time = time;
+            User = user;
             UnityCustomTokenAPI = unityCustomTokenAPI;
         }
 

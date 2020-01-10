@@ -12,8 +12,9 @@
 
         }
 
-        public User(string name, string unityCustomTokenAPI)
+        public User(string id, string name, string unityCustomTokenAPI)
         {
+            Id = id;
             Name = name;
             UnityCustomTokenAPI = unityCustomTokenAPI;
         }

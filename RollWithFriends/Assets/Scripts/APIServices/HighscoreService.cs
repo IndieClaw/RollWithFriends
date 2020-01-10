@@ -29,20 +29,21 @@ public static class HighscoreService
         }
     }
 
-    public static void CreateHighscoreForCurrentUser(        
+    public static void CreateHighscoreForCurrentUser(
         string levelCodeName,
         float time,
         HttpClient client)
     {
         try
         {
-            var user = new User
-                (PlayerPrefs.GetString(Constants.PlayerPrefKeyUser),
+            var user = new User(
+                "temp",
+                PlayerPrefs.GetString(Constants.PlayerPrefKeyUser),
                 Constants.UnityCustomTokenAPI);
 
             var score = new Highscore(
-                id: "_",
-                levelName:  levelCodeName,
+                id: "temp",
+                levelName: levelCodeName,
                 time: time,
                 user: user,
                 unityCustomTokenAPI: Constants.UnityCustomTokenAPI

@@ -17,7 +17,7 @@ public static class UserService
     {
         try
         {
-            var user = new User(userName, Constants.UnityCustomTokenAPI);
+            var user = new User("tempId", userName, Constants.UnityCustomTokenAPI);
             string userJson = JsonConvert.SerializeObject(user);
             var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
 

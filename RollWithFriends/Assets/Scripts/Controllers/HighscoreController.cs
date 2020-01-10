@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,18 @@ public class HighscoreController : MonoBehaviour
     public void CreateHighscoreForCurrentUser(string levelName, string levelCodeName, float time)
     {
         var personalScore = PlayerPrefs.GetFloat(levelCodeName);
-        
+
         if (personalScore == 0 || time < personalScore)
-        {            
+        {
             try
             {
-                HighscoreService.CreateHighscoreForCurrentUser(levelCodeName, time, GameManager.instance.client);
+
+                float truncated = (float)(Math.Truncate((double)time * 100.0) / 100.0);
+
+                float roundedTime = (float)(Math.Round((double)time, 2));
+
+
+                HighscoreService.CreateHighscoreForCurrentUser(levelCodeName, roundedTime, GameManager.instance.client);
             }
             catch (System.Exception ex)
             {
