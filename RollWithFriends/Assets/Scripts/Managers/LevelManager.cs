@@ -13,9 +13,9 @@ public class LevelManager : MonoBehaviour
     public static event Action OnLevelStarted = delegate { };
     public static event Action<string, string, float> OnLevelEnded = delegate { };
 
-    [SerializeField] string levelName;
+    string levelName;
 
-    [SerializeField] string levelCodeName;
+    string levelCodeName;
 
     byte startingCountdownTime = 3;
     WaitForSeconds waitForSecondCountDown;
@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
     float levelTimer = 0f;
 
     [SerializeField] TextMeshProUGUI timerTextMesh;
+    [SerializeField] TextMeshProUGUI countDownTextMesh;
 
     #endregion
 
@@ -45,7 +46,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void InitializeLevel()
-    {        
+    {
         StartCoroutine(InstantiatePlayerRoutine());
     }
 
@@ -56,6 +57,7 @@ public class LevelManager : MonoBehaviour
         timerTextMesh.text = "0.00";
 
         canIncrementLevelTimer = false;
+        countDownTextMesh.gameObject.SetActive(true);
         StartCountdownTimer();
     }
 
@@ -147,6 +149,7 @@ public class LevelManager : MonoBehaviour
 
     void LevelStarted()
     {
+        countDownTextMesh.gameObject.SetActive(false);
         canIncrementLevelTimer = true;
     }
 
@@ -169,9 +172,9 @@ public class LevelManager : MonoBehaviour
             for (int i = startingCountdownTime; i >= 0; i--)
             {
                 print(i);
+                countDownTextMesh.text = i.ToString();
                 if (i == 0)
-                {
-                    print("GO!");
+                {                    
                     OnLevelStarted();
                     LevelStarted();
                     yield return null;
