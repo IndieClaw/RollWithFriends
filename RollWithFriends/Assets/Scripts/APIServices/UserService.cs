@@ -30,9 +30,9 @@ public static class UserService
 
             PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, userName);
         }
-        catch (System.Exception)
+        catch (System.Exception ex)
         {
-            throw new System.Exception("That user already exists");
+            throw ex;
         }
     }
     #endregion

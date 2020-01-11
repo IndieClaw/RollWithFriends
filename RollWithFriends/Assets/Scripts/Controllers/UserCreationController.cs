@@ -40,7 +40,7 @@ public class UserCreationController : MonoBehaviour
             }
             catch (System.Exception ex)
             {
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessage("That user already exists.");
             }
         }
         else
