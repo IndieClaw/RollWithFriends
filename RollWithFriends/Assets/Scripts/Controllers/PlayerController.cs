@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     #region Fields and properties
 
-    [SerializeField] Rigidbody rb;
+    [SerializeField] private Rigidbody rigidBody;
 
     private Checkpoint lastCheckpointReached;
 
-    public static event Action<PlayerController> OnPlayerReachedEnd = delegate { };
+    public static event Action OnPlayerReachedEnd = delegate { };
 
     public static event Action OnPlayerResetLevel = delegate { };
     bool endedLevel;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     #region Private methods	
 
     void Start()
-    {
+    {        
         SubscriveEvents();
     }
 
@@ -36,13 +36,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown(Constants.ButtonResetLevel))
         {
             OnPlayerResetLevel();
-            
+
         }
 
         if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
         {
             if (!endedLevel)
-            {                
+            {
                 RespawnAtLastCheckpoint();
             }
         }
@@ -54,9 +54,19 @@ public class PlayerController : MonoBehaviour
         LevelManager.OnLevelWasReset += RestartAtStart;
     }
 
-    void UnsubscriveEvents()
+    void UnsubscribeEvents()
     {
         LevelManager.OnLevelWasReset -= RestartAtStart;
+    }
+
+    private void OnDestroy() 
+    {
+        UnsubscribeEvents();
+    }
+
+    private void OnDisable() 
+    {
+        UnsubscribeEvents();
     }
 
     void RestartAtStart()
@@ -88,10 +98,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Freeze(bool isKinematic)
-    {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = isKinematic;
+    {        
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
+        rigidBody.isKinematic = isKinematic;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,7 +115,7 @@ public class PlayerController : MonoBehaviour
             {
                 Freeze(true);
                 endedLevel = true;
-                OnPlayerReachedEnd(this);
+                OnPlayerReachedEnd();
             }
         }
 

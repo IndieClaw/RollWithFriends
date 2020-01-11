@@ -366,6 +366,11 @@ PrefabInstance:
       propertyPath: countDownTextMesh
       value: 
       objectReference: {fileID: 6588424390832873685}
+    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
+        type: 3}
+      propertyPath: isInDevelopmentMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5726070960403136322, guid: e0c43b9157b40424185c30b0ecdf1869,
         type: 3}
       propertyPath: m_LocalPosition.x

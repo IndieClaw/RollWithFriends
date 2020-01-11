@@ -26,7 +26,7 @@ public class HighscoreController : MonoBehaviour
 
                 HighscoreService.CreateHighscoreForCurrentUser(levelCodeName, roundedTime, GameManager.instance.client);
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 throw;
             }

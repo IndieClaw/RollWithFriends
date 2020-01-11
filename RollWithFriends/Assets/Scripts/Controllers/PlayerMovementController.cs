@@ -10,6 +10,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private int jumpForce = 300;
 
     [SerializeField] private Rigidbody rb;
+    [SerializeField] CameraController cameraController;
 
     bool isMoving = false;
     bool canMove = false;
@@ -107,8 +108,8 @@ public class PlayerMovementController : MonoBehaviour
     void Move(float horizontalInput, float verticalInput)
     {
         // camera orientation
-        Vector3 verticalOrientation = Input.GetAxis("Vertical") * CameraManager.instance.transform.forward;
-        Vector3 horizontalOrientation = Input.GetAxis("Horizontal") * CameraManager.instance.transform.right;
+        Vector3 verticalOrientation = Input.GetAxis("Vertical") * cameraController.transform.forward;
+        Vector3 horizontalOrientation = Input.GetAxis("Horizontal") * cameraController.transform.right;
 
         var desiredMoveDirection = (verticalOrientation + horizontalOrientation).normalized;
 
@@ -120,7 +121,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         yield return new WaitForSeconds(.01f);
 
-        CameraManager.instance.target = gameObject.transform;
+        cameraController.target = gameObject.transform;
     }
 
     #endregion

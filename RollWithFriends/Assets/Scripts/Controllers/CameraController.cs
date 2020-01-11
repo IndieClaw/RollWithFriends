@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     #region Fields and properties
-    public static CameraManager instance;
+    //public static CameraManager instance;
 
     [SerializeField] Vector3 cameraPlayerOffset;
 
@@ -49,14 +49,14 @@ public class CameraManager : MonoBehaviour
     #region Private methods	
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        // if (instance == null)
+        // {
+        //     instance = this;
+        // }
+        // else if (instance != this)
+        // {
+        //     Destroy(gameObject);
+        // }
 
     }
 

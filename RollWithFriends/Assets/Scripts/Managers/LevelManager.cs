@@ -134,13 +134,13 @@ public class LevelManager : MonoBehaviour
 
         Instantiate(
             original: playerPrefab,
-             position: startingCheckpoint,
-              rotation: Quaternion.identity);
+            position: startingCheckpoint,
+            rotation: Quaternion.identity);
 
         StartCountdownTimer();
     }
 
-    void OnPlayerReachedEnd(PlayerController player)
+    void OnPlayerReachedEnd()
     {
         canIncrementLevelTimer = false;
         OnLevelEnded(levelName, levelCodeName, levelTimer);
