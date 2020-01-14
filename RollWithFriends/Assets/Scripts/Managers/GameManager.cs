@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
+            // Test
             instance = this;
         }
         else if (instance != this) 
