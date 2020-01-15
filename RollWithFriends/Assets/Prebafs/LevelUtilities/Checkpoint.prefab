@@ -48,7 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpointType: 2
   previousCheckpoint: {fileID: 0}
-  checkpointCollider: {fileID: 1748072585401821140}
+  checkpointMeshCollider: {fileID: 2668790459566360519}
+  checkpointMeshRenderer: {fileID: 5671711088621308642}
   respawnPoint: {fileID: 8844848725783531350}
 --- !u!33 &3597726987962492812
 MeshFilter:

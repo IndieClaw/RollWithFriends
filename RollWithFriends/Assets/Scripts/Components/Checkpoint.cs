@@ -16,7 +16,8 @@ public class Checkpoint : MonoBehaviour
 
     [SerializeField] private Checkpoint previousCheckpoint;
 
-    [SerializeField] private GameObject checkpointCollider;
+    [SerializeField] public MeshCollider checkpointMeshCollider;
+    [SerializeField] public MeshRenderer checkpointMeshRenderer;
 
     [SerializeField] public GameObject respawnPoint;
 
@@ -31,9 +32,10 @@ public class Checkpoint : MonoBehaviour
     /// </summary>
     public void DisableCheckPoint()
     {
-        if(checkpointCollider != null)
+        if(checkpointMeshCollider != null)
         {
-            checkpointCollider.SetActive(false);
+            checkpointMeshCollider.enabled = false;
+            checkpointMeshRenderer.enabled = false;
         }
         
         if(previousCheckpoint != null)
@@ -64,9 +66,10 @@ public class Checkpoint : MonoBehaviour
         if (checkpointType == CheckpointType.Checkpoint
             && other.CompareTag(Constants.TagPlayer))
         {
-            if (checkpointCollider != null)
+            if (checkpointMeshCollider != null)
             {                
-                checkpointCollider.SetActive(false);
+                checkpointMeshCollider.enabled = false;
+                checkpointMeshRenderer.enabled = false;
             }
 
             if (previousCheckpoint != null)

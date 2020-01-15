@@ -56,6 +56,17 @@ public class LevelManager : MonoBehaviour
         levelTimer = 0;
         timerTextMesh.text = "0.00";
 
+        // Re-enable all checkpoints
+        GameObject.FindObjectsOfType<Checkpoint>()
+            .Where(c =>
+                c.checkpointType == Checkpoint.CheckpointType.Checkpoint)
+            .ToList()
+            .ForEach(c =>
+                {
+                    c.checkpointMeshCollider.enabled = true;
+                    c.checkpointMeshRenderer.enabled = true;
+                });
+
         canIncrementLevelTimer = false;
         countDownTextMesh.gameObject.SetActive(true);
         StartCountdownTimer();
@@ -80,6 +91,7 @@ public class LevelManager : MonoBehaviour
             .Where(c =>
                 c.checkpointType == Checkpoint.CheckpointType.Start)
             .FirstOrDefault();
+
 
         if (startingCp == null)
         {
@@ -174,7 +186,7 @@ public class LevelManager : MonoBehaviour
                 print(i);
                 countDownTextMesh.text = i.ToString();
                 if (i == 0)
-                {                    
+                {
                     OnLevelStarted();
                     LevelStarted();
                     yield return null;
