@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +13,9 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     [SerializeField] Button connectToMasterButton;
     [SerializeField] Button joinRoomButton;
 
-    bool isConnectingToMaster;
+    [SerializeField] TMP_InputField roomNameInputField;
 
-    bool isJoiningRoom;
-
+    
 	
 	#endregion
 
@@ -33,24 +34,46 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = Constants.GameVersion;
 
-        isConnectingToMaster = true;
         PhotonNetwork.ConnectUsingSettings();
 
+    }
+
+    public void JoinOrCreateRoom()
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+        var roomName = roomNameInputField.text != string.Empty
+             ? roomNameInputField.text
+             : Guid.NewGuid().ToString();
+             
+        var roomOptions = new RoomOptions();
+        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+        //PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
-        isConnectingToMaster = false;
-        isJoiningRoom = false;
         Debug.Log(cause);
     }
 
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        isConnectingToMaster = true;
         Debug.Log("Connected to master");
+    }
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        Debug.Log("Room name: "+PhotonNetwork.CurrentRoom.Name);
+
+    }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        
     }
 	#endregion
 	
