@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NetworkConnectionManager : MonoBehaviourPunCallbacks
@@ -15,7 +16,9 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TMP_InputField roomNameInputField;
 
-    
+    [SerializeField] GameObject lobbyWindow;
+
+    [SerializeField] TextMeshProUGUI roomNameTextMesh;
 	
 	#endregion
 
@@ -63,13 +66,16 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         Debug.Log("Connected to master");
+        joinRoomButton.interactable = true;
     }
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         Debug.Log("Room name: "+PhotonNetwork.CurrentRoom.Name);
-
+        lobbyWindow.SetActive(true);
+        SetRoomDetailsData();
     }
+    
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
@@ -82,12 +88,17 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 	
     void Start()
     {
-        
+        joinRoomButton.interactable = false;
     }
     
     void Update()
     {
         
+    }
+
+    private void SetRoomDetailsData()
+    {
+        roomNameTextMesh.text = PhotonNetwork.CurrentRoom.Name;
     }
 	
 	#endregion
