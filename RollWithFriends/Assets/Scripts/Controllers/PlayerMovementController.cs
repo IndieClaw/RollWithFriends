@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviourPun
 {
     #region Fields and properties
     [SerializeField] private float speed = 8;
@@ -33,6 +34,9 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
+            
         if (!canMove)
             return;
 

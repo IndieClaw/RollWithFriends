@@ -40,11 +40,7 @@ public class LevelBannerController : MonoBehaviour
     }
 
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            SceneManager.UnloadSceneAsync("LevelSelection");
-        }
+    {      
     }
 
     void GetPersonalBest()

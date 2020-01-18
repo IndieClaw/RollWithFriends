@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -56,8 +57,7 @@ public class CameraController : MonoBehaviour
         // else if (instance != this)
         // {
         //     Destroy(gameObject);
-        // }
-
+        // }        
     }
 
 
@@ -73,9 +73,9 @@ public class CameraController : MonoBehaviour
     }
 
     void LateUpdate()
-    {
+    {       
         if (target != null)
-        {
+        {            
             FollowTarget();
             HandleRotations(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight"));
             HandleRotations(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));

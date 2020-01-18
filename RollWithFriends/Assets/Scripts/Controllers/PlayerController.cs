@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     #region Fields and properties
 
@@ -27,12 +28,16 @@ public class PlayerController : MonoBehaviour
     #region Private methods	
 
     void Start()
-    {        
+    {
         SubscriveEvents();
     }
 
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
+
+
         if (Input.GetButtonDown(Constants.ButtonResetLevel))
         {
             OnPlayerResetLevel();
@@ -59,12 +64,12 @@ public class PlayerController : MonoBehaviour
         LevelManager.OnLevelWasReset -= RestartAtStart;
     }
 
-    private void OnDestroy() 
+    private void OnDestroy()
     {
         UnsubscribeEvents();
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         UnsubscribeEvents();
     }
@@ -98,7 +103,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Freeze(bool isKinematic)
-    {        
+    {
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
         rigidBody.isKinematic = isKinematic;

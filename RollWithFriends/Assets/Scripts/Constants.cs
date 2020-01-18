@@ -11,8 +11,9 @@ public static class Constants
 
     #region SceneNames
 
-    public const string SceneNameGame = "_Game";    
-    public const string SceneNameLevelSelection = "LevelSelection";    
+    public const string SceneNameGame = "_Game";
+    public const string SceneNameLevelSelection = "LevelSelection";
+    public const string SceneNameMultiplayerLobby = "MultiplayerLobby";
     #endregion
 
     #region Tags
@@ -41,11 +42,16 @@ public static class Constants
 
     #region API URL CALLS
     // USER
-    public const string ApiServiceUserCreate = "/user/create";    
+    public const string ApiServiceUserCreate = "/user/create";
 
     // Hihghscore
     public const string ApiServiceHighscoreGetBestForLevel = "/highscore/GetBestScoreForLevel/{0}";
     public const string ApiServiceHighscoreCreate = "/highscore/create";
-    
+
+    // PHOTON - Mutliplayer
+    public const string MultiplayerPlayerPrefabName = "MultiplayerPlayerPrefab";
+    public static string[] MultiplayerLevelsArray = new string[]{
+        "M1","M2","M3","M4"
+        };
     #endregion
 }

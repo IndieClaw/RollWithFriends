@@ -77,6 +77,7 @@ public class UIManager : MonoBehaviour
         {            
             finalScreenCanvas.SetActive(false);
         }
+        
         finalCanvasTimer.text = "0.00";
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

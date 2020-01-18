@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/W1/A4.unity
     guid: ce1314a54993bbe4ba91227809f18dc2
+  - enabled: 1
+    path: Assets/Scenes/Levels/Multiplayer/M1.unity
+    guid: a816f39156bb258439591159f18830d1
   m_configObjects: {}
