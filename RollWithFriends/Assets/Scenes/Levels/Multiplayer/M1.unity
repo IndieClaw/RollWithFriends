@@ -96,7 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 112000000, guid: 36a4cb3b0d5a6d9418c1a0bc7a78b49e,
+  m_LightingDataAsset: {fileID: 112000000, guid: 6c9a1d163c0aef247a3f7a9667fa899b,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -6559,7 +6559,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6184
+  m_Name: pb_Mesh-6684
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerTextMesh;
     [SerializeField] TextMeshProUGUI countDownTextMesh;
 
+    bool isMultiplayer;
     #endregion
 
     #region Public methods
@@ -43,6 +45,11 @@ public class LevelManager : MonoBehaviour
     {
         levelName = lvlName;
         levelCodeName = lvlCodeName;
+    }
+
+    public void SetMultiplayer(bool isMultiplayerFlag)
+    {
+        isMultiplayer = isMultiplayerFlag;
     }
 
     public void InitializeLevel()
@@ -143,11 +150,23 @@ public class LevelManager : MonoBehaviour
     IEnumerator InstantiatePlayerRoutine()
     {
         yield return new WaitForSeconds(0.1f);
+        if (isMultiplayer)
+        {
+            // TODO JS: random spawn points
+            PhotonNetwork.Instantiate(
+                Constants.PlayerPrefabName,
+                startingCheckpoint,
+                Quaternion.identity);
 
-        Instantiate(
-            original: playerPrefab,
-            position: startingCheckpoint,
-            rotation: Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(
+                original: playerPrefab,
+                position: startingCheckpoint,
+                rotation: Quaternion.identity);
+        }
+
 
         StartCountdownTimer();
     }

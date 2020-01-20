@@ -49,7 +49,9 @@ public static class Constants
     public const string ApiServiceHighscoreCreate = "/highscore/create";
 
     // PHOTON - Mutliplayer
-    public const string MultiplayerPlayerPrefabName = "MultiplayerPlayerPrefab";
+    public const string PlayerPrefabName = "PlayerPrefab";
+    public const string PlayerListItemPrefabName = "PlayerListItem";
+
     public static string[] MultiplayerLevelsArray = new string[]{
         "M1","M2","M3","M4"
         };

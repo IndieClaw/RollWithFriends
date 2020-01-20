@@ -26,8 +26,8 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     #region Public methods
     public void LoadMultiplayerLevel()
     {
-        var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];
-        //SceneManager.LoadScene(levelNameToLoad);
+        //SceneManager.LoadScene("MainMenu");
+        var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];        
         StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));
     }
 
@@ -42,7 +42,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.NickName = PlayerPrefs.GetString(Constants.PlayerPrefKeyUser);
-        PhotonNetwork.AutomaticallySyncScene = true;
+        //PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = Constants.GameVersion;
 
         PhotonNetwork.ConnectUsingSettings();
@@ -164,6 +164,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         if (levelManager != null)
         {
             levelManager.SetLevelNameData(levelName, levelName); // TODO JS: level name and code name
+            levelManager.SetMultiplayer(true);
         }
     }
     #endregion
