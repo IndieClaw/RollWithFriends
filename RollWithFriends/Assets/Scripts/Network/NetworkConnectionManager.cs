@@ -82,6 +82,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Room name: " + PhotonNetwork.CurrentRoom.Name);
+        joinRoomButton.interactable = false;
         lobbyWindow.SetActive(true);
         SetRoomDetailsData();
     }
