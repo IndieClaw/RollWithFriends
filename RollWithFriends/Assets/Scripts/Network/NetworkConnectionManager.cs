@@ -19,16 +19,17 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TextMeshProUGUI roomNameTextMesh;
     [SerializeField] TextMeshProUGUI connectingLabelTextMesh;
-    [SerializeField] TMP_Dropdown levelSelectionDropdown;
+    [SerializeField] TMP_Dropdown levelSelectionDropdown;    
 
     #endregion
 
     #region Public methods
     public void LoadMultiplayerLevel()
-    {
-        //SceneManager.LoadScene("MainMenu");
-        var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];        
-        StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));
+    {      
+        photonView.RPC(nameof(LoadGameRPC), RpcTarget.All);
+        // var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];
+
+        // StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));
     }
 
     public void ConnectToMaster()
@@ -42,7 +43,6 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.NickName = PlayerPrefs.GetString(Constants.PlayerPrefKeyUser);
-        //PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = Constants.GameVersion;
 
         PhotonNetwork.ConnectUsingSettings();
@@ -106,6 +106,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         joinRoomButton.interactable = false;
         connectingLabelTextMesh.gameObject.SetActive(true);
+        PhotonNetwork.AutomaticallySyncScene = true;
         ConnectToMaster();
     }
 
@@ -167,6 +168,15 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
             levelManager.SetLevelNameData(levelName, levelName); // TODO JS: level name and code name
             levelManager.SetMultiplayer(true);
         }
+    }
+
+    [PunRPC]
+    void LoadGameRPC()
+    {
+        var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];
+
+
+        StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));
     }
     #endregion
 }

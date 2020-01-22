@@ -553,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerListContent: {fileID: 2090816906}
+  playButton: {fileID: 1507391108}
 --- !u!4 &151681969
 Transform:
   m_ObjectHideFlags: 0
@@ -1596,6 +1597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448748942}
   - component: {fileID: 448748941}
+  - component: {fileID: 448748943}
   m_Layer: 0
   m_Name: NetworkConnectionManager
   m_TagString: Untagged
@@ -1635,6 +1637,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448748943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448748940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &525461246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3788,7 +3812,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1507391109}
   m_OnClick:
     m_PersistentCalls:

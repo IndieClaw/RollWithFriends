@@ -4,11 +4,13 @@ using System.Linq;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
     #region Fields and properties
     [SerializeField] RectTransform playerListContent;
+    [SerializeField] Button playButton;
 
     #endregion
 
@@ -17,6 +19,10 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         UpdatePlayerList();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            playButton.interactable = true;
+        }
 
     }
 
@@ -38,8 +44,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
     #region Private methods	
 
     void Start()
-    {
-
+    {        
+        
     }
 
     void Update()
