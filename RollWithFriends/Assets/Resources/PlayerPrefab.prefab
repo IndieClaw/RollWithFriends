@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 2684755314217779524}
+  cameraHolder: {fileID: 2684755313703497784}
 --- !u!114 &2684755314217779525
 MonoBehaviour:
   m_ObjectHideFlags: 0

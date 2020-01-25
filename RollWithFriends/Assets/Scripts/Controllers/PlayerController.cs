@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviourPun
     public static event Action OnPlayerReachedEnd = delegate { };
 
     public static event Action OnPlayerResetLevel = delegate { };
+    
+    [SerializeField] GameObject cameraHolder;
     bool endedLevel;
 
     #endregion
@@ -30,6 +32,10 @@ public class PlayerController : MonoBehaviourPun
     void Start()
     {
         SubscriveEvents();
+        if (!photonView.IsMine)
+        {
+            Destroy(cameraHolder);
+        }
     }
 
     void Update()
