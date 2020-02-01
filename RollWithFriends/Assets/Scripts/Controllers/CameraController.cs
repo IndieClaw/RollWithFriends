@@ -124,9 +124,13 @@ public class CameraController : MonoBehaviour
                 if (!obstructionDictionary.ContainsKey(obj.transform))
                 {
                     var mesh = obj.transform.gameObject.GetComponent<MeshRenderer>();
-                    obstructionDictionary.Add(obj.transform, mesh.material);
-                    mesh.material = transparencyMaterial;
-                    mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    
+                    if (mesh != null)
+                    {                        
+                        obstructionDictionary.Add(obj.transform, mesh.material);
+                        mesh.material = transparencyMaterial;
+                        mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    }
                 }
             }
         }

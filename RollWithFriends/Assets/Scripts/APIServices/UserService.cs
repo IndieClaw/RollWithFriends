@@ -35,6 +35,18 @@ public static class UserService
             throw ex;
         }
     }
+
+    public static bool DoesUserExist(string userName, HttpClient client)
+    {
+        var methodString = string.Format(Constants.ApiServiceUserDoesUserExist, userName);
+
+        var response = client.GetStringAsync(
+               $"{Constants.ApiUrl + methodString}")
+               .Result;
+
+        return bool.Parse(response.ToString());
+    }
+
     #endregion
 
 

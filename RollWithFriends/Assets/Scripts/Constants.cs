@@ -43,6 +43,7 @@ public static class Constants
     #region API URL CALLS
     // USER
     public const string ApiServiceUserCreate = "/user/create";
+    public const string ApiServiceUserDoesUserExist = "/user/DoesUserNameAlreadyExist/{0}";
 
     // Hihghscore
     public const string ApiServiceHighscoreGetBestForLevel = "/highscore/GetBestScoreForLevel/{0}";

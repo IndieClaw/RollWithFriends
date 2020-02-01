@@ -21,7 +21,7 @@ public class UserCreationController : MonoBehaviour
     [SerializeField] TextMeshProUGUI welcomeTextMesh;
     [SerializeField] TextMeshProUGUI welcomeExistingUserTextMesh;
 
-    
+
     #endregion
 
     #region Public methods
@@ -55,7 +55,7 @@ public class UserCreationController : MonoBehaviour
     #region Private methods	
 
     void Start()
-    {        
+    {
         //PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
         ///PlayerPrefs.SetString(Constants.PlayerPrefKeyUser, "master");
         if (!PlayerPrefs.HasKey(Constants.PlayerPrefKeyUser))
@@ -64,7 +64,19 @@ public class UserCreationController : MonoBehaviour
         }
         else
         {
-            WelcomeExistingUser();
+            var userExistsInDB = UserService.DoesUserExist(
+                PlayerPrefs.GetString(Constants.PlayerPrefKeyUser),
+                GameManager.instance.client);
+
+            if (!userExistsInDB)
+            {
+                createUserCanvas.SetActive(true);
+                PlayerPrefs.DeleteKey(Constants.PlayerPrefKeyUser);
+            }
+            else
+            {
+                WelcomeExistingUser();
+            }
         }
     }
 
