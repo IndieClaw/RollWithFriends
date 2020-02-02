@@ -17,6 +17,7 @@ public class PlayerMovementController : MonoBehaviourPun
     bool canMove = false;
 
     private bool canJump = true;
+    bool doIHaveControllOverThisPlayer = false;
 
     #endregion
 
@@ -29,12 +30,18 @@ public class PlayerMovementController : MonoBehaviourPun
 
     void Start()
     {
+        doIHaveControllOverThisPlayer = photonView.IsMine || photonView.ViewID == 0;
+        if (!doIHaveControllOverThisPlayer)
+        {
+            return;
+        }
+        
         SubscribeEvents();
     }
 
     void Update()
     {
-        if (!photonView.IsMine)
+        if (!doIHaveControllOverThisPlayer)
             return;
             
         if (!canMove)

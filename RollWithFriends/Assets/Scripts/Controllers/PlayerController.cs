@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviourPun
     [SerializeField] GameObject cameraHolder;
     bool endedLevel;
 
+    bool doIHaveControllOverThisPlayer = false;
     #endregion
 
     #region Public methods
@@ -31,16 +32,20 @@ public class PlayerController : MonoBehaviourPun
 
     void Start()
     {
-        SubscriveEvents();
-        if (!photonView.IsMine)
+        doIHaveControllOverThisPlayer = photonView.IsMine || photonView.ViewID == 0;
+
+        if (!doIHaveControllOverThisPlayer)
         {
             Destroy(cameraHolder);
+            return;
         }
+
+        SubscriveEvents();
     }
 
     void Update()
     {
-        if (!photonView.IsMine)
+        if (!doIHaveControllOverThisPlayer)
             return;
 
 

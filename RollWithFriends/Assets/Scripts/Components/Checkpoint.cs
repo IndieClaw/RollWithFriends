@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -66,6 +67,15 @@ public class Checkpoint : MonoBehaviour
         if (checkpointType == CheckpointType.Checkpoint
             && other.CompareTag(Constants.TagPlayer))
         {
+            var photonView = other.transform.parent.GetComponent<PhotonView>();
+
+            // We only want to disable checkpoints for the current client
+            // Else if any player passes through a checkpoint he disables all previous ones.
+            if (!photonView.IsMine && photonView.ViewID != 0)
+            {
+                return;
+            }
+
             if (checkpointMeshCollider != null)
             {                
                 checkpointMeshCollider.enabled = false;
