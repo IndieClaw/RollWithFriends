@@ -10,7 +10,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
 {
     #region Fields and properties
     [SerializeField] RectTransform playerListContent;
-    [SerializeField] Button playButton;
+    [SerializeField] Button playButton;    
 
     #endregion
 
@@ -49,8 +49,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     }
 
     void Update()
-    {
-
+    {        
     }
 
 

@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
-            // Test
+        {           
             instance = this;
         }
         else if (instance != this) 

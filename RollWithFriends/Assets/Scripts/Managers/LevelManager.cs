@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI countDownTextMesh;
 
     bool isMultiplayer;
+    float levelPlayerCount = 0;
     #endregion
 
     #region Public methods
@@ -52,9 +53,14 @@ public class LevelManager : MonoBehaviour
         isMultiplayer = isMultiplayerFlag;
     }
 
+    public void SetRoomPlayerCount(int playerCount)
+    {
+        levelPlayerCount = playerCount;
+    }
+
     public void InitializeLevel()
     {
-        StartCoroutine(InstantiatePlayerRoutine());
+        StartCoroutine(InitializeLelvelCoroutine());
     }
 
     public void ResetLevel()
@@ -78,7 +84,7 @@ public class LevelManager : MonoBehaviour
         countDownTextMesh.gameObject.SetActive(true);
         StartCountdownTimer();
     }
-
+    
 
     #endregion
 
@@ -147,9 +153,11 @@ public class LevelManager : MonoBehaviour
         PlayerController.OnPlayerResetLevel -= ResetLevel;
     }
 
-    IEnumerator InstantiatePlayerRoutine()
+    IEnumerator InitializeLelvelCoroutine()
     {
         yield return new WaitForSeconds(0.1f);
+
+        // Instantiate player
         if (isMultiplayer)
         {
             // TODO JS: random spawn points
@@ -157,18 +165,17 @@ public class LevelManager : MonoBehaviour
                 Constants.PlayerPrefabName,
                 startingCheckpoint,
                 Quaternion.identity);
-
         }
         else
         {
+            // In single player we start the game immediately
             Instantiate(
                 original: playerPrefab,
                 position: startingCheckpoint,
                 rotation: Quaternion.identity);
+
+            StartCountdownTimer();
         }
-
-
-        StartCountdownTimer();
     }
 
     void OnPlayerReachedEnd()

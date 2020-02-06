@@ -19,17 +19,14 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TextMeshProUGUI roomNameTextMesh;
     [SerializeField] TextMeshProUGUI connectingLabelTextMesh;
-    [SerializeField] TMP_Dropdown levelSelectionDropdown;    
+    [SerializeField] TMP_Dropdown levelSelectionDropdown;
 
     #endregion
 
     #region Public methods
     public void LoadMultiplayerLevel()
-    {      
+    {
         photonView.RPC(nameof(LoadGameRPC), RpcTarget.All);
-        // var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];
-
-        // StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));
     }
 
     public void ConnectToMaster()
@@ -73,24 +70,28 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        Debug.Log("Connected to master");
+        
         joinRoomButton.interactable = true;
         connectingLabelTextMesh.text = "Connected";
     }
 
     public override void OnJoinedRoom()
     {
-        base.OnJoinedRoom();
-        Debug.Log("Room name: " + PhotonNetwork.CurrentRoom.Name);
+        base.OnJoinedRoom();        
         joinRoomButton.interactable = false;
         lobbyWindow.SetActive(true);
         SetRoomDetailsData();
     }
 
+    /// <summary>
+    /// When ANOTHER client enters the room
+    /// </summary>    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        // TODO JS: update player list
+        base.OnPlayerEnteredRoom(newPlayer);
+        Debug.Log(PhotonNetwork.CurrentRoom.Players);        
     }
+
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -122,6 +123,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     IEnumerator LoadLevelAsyncRoutine(string levelName)
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
         yield return null;
 
         AsyncOperation levelAsync = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
@@ -168,6 +170,8 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
             levelManager.SetLevelNameData(levelName, levelName); // TODO JS: level name and code name
             levelManager.SetMultiplayer(true);
         }
+
+        levelManager.SetRoomPlayerCount(PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     [PunRPC]
