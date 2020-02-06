@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviourPunCallbacks
 {
     #region Fields and properties
     public static event Action OnLevelWasReset = delegate { };
@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
 
     bool isMultiplayer;
     float levelPlayerCount = 0;
+    float loadedPlayersCount = 0;
     #endregion
 
     #region Public methods
@@ -84,7 +85,7 @@ public class LevelManager : MonoBehaviour
         countDownTextMesh.gameObject.SetActive(true);
         StartCountdownTimer();
     }
-    
+
 
     #endregion
 
@@ -92,6 +93,7 @@ public class LevelManager : MonoBehaviour
     #region Private methods	
     private void Awake()
     {
+        
     }
 
     void Start()
@@ -131,7 +133,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         UnSubscribeEvents();
     }
@@ -165,6 +167,8 @@ public class LevelManager : MonoBehaviour
                 Constants.PlayerPrefabName,
                 startingCheckpoint,
                 Quaternion.identity);
+
+            photonView.RPC(nameof(IncrementLoadedPlayers), RpcTarget.All);
         }
         else
         {
@@ -221,6 +225,21 @@ public class LevelManager : MonoBehaviour
                 yield return waitForSecondCountDown;
 
             }
+        }
+    }
+
+    #endregion
+
+    #region RPC'S
+    [PunRPC]
+    void IncrementLoadedPlayers()
+    {
+        loadedPlayersCount++;
+        print(loadedPlayersCount);
+
+        if (loadedPlayersCount == levelPlayerCount)
+        {
+            print("can start level");
         }
     }
 

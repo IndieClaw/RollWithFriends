@@ -435,17 +435,6 @@ PrefabInstance:
       propertyPath: countDownTextMesh
       value: 
       objectReference: {fileID: 6588424390832873685}
-    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
-        type: 3}
-      propertyPath: isInDevelopmentMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
-        type: 3}
-      propertyPath: multiplayerPlayerPrefab
-      value: 
-      objectReference: {fileID: 7527851435863875079, guid: d5bfc149edbbe1d46a268859da662483,
-        type: 3}
     - target: {fileID: 5726070960403136322, guid: e0c43b9157b40424185c30b0ecdf1869,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -500,6 +489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3310472420456631249, guid: e0c43b9157b40424185c30b0ecdf1869,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0c43b9157b40424185c30b0ecdf1869, type: 3}
