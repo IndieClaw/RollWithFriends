@@ -28,6 +28,7 @@ public static class Constants
     #region Buttons
     public const string ButtonResetLevel = "ResetLevel";
     public const string ButtonResetCheckpoint = "ResetCheckpoint";
+    public const string ButtonShowScoreList = "ShowScoreList";
 
     #endregion
 

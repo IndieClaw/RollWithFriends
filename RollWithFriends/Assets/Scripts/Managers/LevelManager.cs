@@ -23,6 +23,8 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject playerPrefab;
 
+    [SerializeField] GameObject scoreListCanvas;
+
     Vector3 startingCheckpoint;
 
     bool canIncrementLevelTimer;
@@ -129,6 +131,15 @@ public class LevelManager : MonoBehaviourPunCallbacks
             {
                 timerTextMesh.text = levelTimer.ToString("F2");
             }
+        }
+
+        if (Input.GetButtonDown(Constants.ButtonShowScoreList))
+        {
+            scoreListCanvas.SetActive(true);
+        }
+        if (Input.GetButtonUp(Constants.ButtonShowScoreList))
+        {
+            scoreListCanvas.SetActive(false);
         }
     }
 

@@ -36,5 +36,6 @@ MonoBehaviour:
   - RespawnSpaceship
   - LoadGameRPC
   - IncrementLoadedPlayers
+  - RPCUpdateMultiplayerScoreList
   DisableAutoOpenWizard: 1
   ShowSettings: 0
