@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7527851435863875079, guid: d5bfc149edbbe1d46a268859da662483,
     type: 3}
-  isInDevelopmentMode: 1
+  scoreListCanvas: {fileID: 0}
+  isInDevelopmentMode: 0
   timerTextMesh: {fileID: 0}
   countDownTextMesh: {fileID: 0}
 --- !u!114 &3310472420456631249
