@@ -239,7 +239,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
         if (loadedPlayersCount == levelPlayerCount)
         {
-            print("can start level");
+            StartCountdownTimer();            
         }
     }
 
