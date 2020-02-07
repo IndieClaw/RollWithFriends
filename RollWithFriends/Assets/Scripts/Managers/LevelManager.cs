@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
     #region Private methods	
     private void Awake()
     {
-        
+
     }
 
     void Start()
@@ -146,20 +146,14 @@ public class LevelManager : MonoBehaviourPunCallbacks
     private void SubscribeEvents()
     {
         PlayerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
-        if (isMultiplayer)
-        {
-            PlayerController.OnPlayerReachedEnd += UpdateMultiplayerScoreList;
-        }
+        PlayerController.OnPlayerReachedEnd += UpdateMultiplayerScoreList;
         PlayerController.OnPlayerResetLevel += ResetLevel;
     }
 
     private void UnSubscribeEvents()
     {
         PlayerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
-        if (isMultiplayer)
-        {
-            PlayerController.OnPlayerReachedEnd -= UpdateMultiplayerScoreList;
-        }
+        PlayerController.OnPlayerReachedEnd -= UpdateMultiplayerScoreList; 
         PlayerController.OnPlayerResetLevel -= ResetLevel;
     }
 
@@ -199,11 +193,14 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     void UpdateMultiplayerScoreList()
     {
-        photonView.RPC(nameof(RPCUpdateMultiplayerScoreList), RpcTarget.All, PlayerPrefs.GetString(Constants.PlayerPrefKeyUser), levelTimer);
+        if (isMultiplayer)
+        {
+            photonView.RPC(nameof(RPCUpdateMultiplayerScoreList), RpcTarget.All, PlayerPrefs.GetString(Constants.PlayerPrefKeyUser), levelTimer);
+        }
     }
 
     [PunRPC]
-    void RPCUpdateMultiplayerScoreList(string playerName,float levelTimer)
+    void RPCUpdateMultiplayerScoreList(string playerName, float levelTimer)
     {
         print(playerName + levelTimer);
     }
@@ -258,7 +255,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
         if (loadedPlayersCount == levelPlayerCount)
         {
-            StartCountdownTimer();            
+            StartCountdownTimer();
         }
     }
 
