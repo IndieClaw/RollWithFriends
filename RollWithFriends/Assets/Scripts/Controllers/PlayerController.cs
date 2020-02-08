@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviourPun
 
     private Checkpoint lastCheckpointReached;
 
-    public static event Action OnPlayerReachedEnd = delegate { };
+    public event Action OnPlayerReachedEnd = delegate { };
 
-    public static event Action OnPlayerResetLevel = delegate { };
-    
+    public event Action OnPlayerResetLevel = delegate { };
+
     [SerializeField] GameObject cameraHolder;
     bool endedLevel;
 

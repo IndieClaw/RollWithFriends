@@ -13,6 +13,8 @@ public class PlayerMovementController : MonoBehaviourPun
     [SerializeField] private Rigidbody rb;
     [SerializeField] CameraController cameraController;
 
+    [SerializeField] PlayerController playerController;
+
     bool isMoving = false;
     bool canMove = false;
 
@@ -88,13 +90,13 @@ public class PlayerMovementController : MonoBehaviourPun
     private void SubscribeEvents()
     {
         LevelManager.OnLevelStarted += AllowMovement;
-        PlayerController.OnPlayerResetLevel += RestrictMovement;
+        playerController.OnPlayerResetLevel += RestrictMovement;
     }
 
     private void UnSubscribeEvents()
     {
         LevelManager.OnLevelStarted -= AllowMovement;
-        PlayerController.OnPlayerResetLevel -= RestrictMovement;
+        playerController.OnPlayerResetLevel -= RestrictMovement;
     }
 
     private void RestrictMovement()

@@ -958,6 +958,61 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 237.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f363c51cfaccb44a9173f3dbb481d9f, type: 3}
 --- !u!114 &6588424390832873685 stripped
@@ -984,6 +1039,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3046737137682213814, guid: 74b6e5a4164b23c428beb35e80e712d3,
+        type: 3}
+      propertyPath: finalCanvasTimer
+      value: 
+      objectReference: {fileID: 1637688580}
+    - target: {fileID: 3046737137682213814, guid: 74b6e5a4164b23c428beb35e80e712d3,
+        type: 3}
+      propertyPath: finalScreenCanvas
+      value: 
+      objectReference: {fileID: 1848108905}
     - target: {fileID: 2265972083056175640, guid: 74b6e5a4164b23c428beb35e80e712d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1039,15 +1104,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3046737137682213814, guid: 74b6e5a4164b23c428beb35e80e712d3,
-        type: 3}
-      propertyPath: finalCanvasTimer
-      value: 
-      objectReference: {fileID: 1637688580}
-    - target: {fileID: 3046737137682213814, guid: 74b6e5a4164b23c428beb35e80e712d3,
-        type: 3}
-      propertyPath: finalScreenCanvas
-      value: 
-      objectReference: {fileID: 1848108905}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b6e5a4164b23c428beb35e80e712d3, type: 3}

@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
     WaitForSeconds waitForSecondCountDown;
 
     [SerializeField] GameObject playerPrefab;
+    private PlayerController playerController;
 
     [SerializeField] GameObject scoreListCanvas;
 
@@ -100,8 +101,6 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        SubscribeEvents();
-
         waitForSecondCountDown = new WaitForSeconds(0.35f);
 
         var startingCp = GameObject.FindObjectsOfType<Checkpoint>()
@@ -156,41 +155,46 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     private void SubscribeEvents()
     {
-        PlayerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
-        PlayerController.OnPlayerReachedEnd += UpdateMultiplayerScoreList;
-        PlayerController.OnPlayerResetLevel += ResetLevel;
+        playerController.OnPlayerReachedEnd += OnPlayerReachedEnd;
+        playerController.OnPlayerReachedEnd += UpdateMultiplayerScoreList;
+        playerController.OnPlayerResetLevel += ResetLevel;
     }
 
     private void UnSubscribeEvents()
     {
-        PlayerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
-        PlayerController.OnPlayerReachedEnd -= UpdateMultiplayerScoreList; 
-        PlayerController.OnPlayerResetLevel -= ResetLevel;
+        playerController.OnPlayerReachedEnd -= OnPlayerReachedEnd;
+        playerController.OnPlayerReachedEnd -= UpdateMultiplayerScoreList;
+        playerController.OnPlayerResetLevel -= ResetLevel;
     }
 
     IEnumerator InitializeLelvelCoroutine()
     {
+
         yield return new WaitForSeconds(0.1f);
 
         // Instantiate player
         if (isMultiplayer)
         {
-            // TODO JS: random spawn points
-            PhotonNetwork.Instantiate(
+            var player = PhotonNetwork.Instantiate(
                 Constants.PlayerPrefabName,
                 startingCheckpoint,
                 Quaternion.identity);
 
+            playerController = player.GetComponentInChildren<PlayerController>();            
+
+            SubscribeEvents();
             photonView.RPC(nameof(IncrementLoadedPlayers), RpcTarget.All);
         }
         else
         {
             // In single player we start the game immediately
-            Instantiate(
+            var player = Instantiate(
                 original: playerPrefab,
                 position: startingCheckpoint,
                 rotation: Quaternion.identity);
+            playerController = player.GetComponentInChildren<PlayerController>();
 
+            SubscribeEvents();
             StartCountdownTimer();
         }
     }

@@ -224,6 +224,7 @@ MonoBehaviour:
   jumpForce: 300
   rb: {fileID: 2684755314217779524}
   cameraController: {fileID: 2684755313703497785}
+  playerController: {fileID: 2445127941071495716}
 --- !u!54 &2684755314217779524
 Rigidbody:
   m_ObjectHideFlags: 0
