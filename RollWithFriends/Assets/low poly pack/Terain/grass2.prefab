@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4656292410584714}
   - component: {fileID: 33634406791542688}
   - component: {fileID: 23562829461205482}
+  - component: {fileID: 186282853}
   m_Layer: 0
   m_Name: Mesh21
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +79,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &186282853
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344211484571108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300040, guid: b2c61055c4a01ad43b08434f8178e1c9, type: 3}
 --- !u!1 &1524001459628960
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +104,7 @@ GameObject:
   - component: {fileID: 4682687166727978}
   m_Layer: 0
   m_Name: grass2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,9 +116,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524001459628960}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.3332143, y: 4.3332143, z: 4.3332143}
   m_Children:
   - {fileID: 4656292410584714}
   m_Father: {fileID: 0}
