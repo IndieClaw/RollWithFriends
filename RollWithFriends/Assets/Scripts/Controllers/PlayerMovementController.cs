@@ -37,7 +37,7 @@ public class PlayerMovementController : MonoBehaviourPun
         {
             return;
         }
-        
+
         SubscribeEvents();
     }
 
@@ -45,7 +45,7 @@ public class PlayerMovementController : MonoBehaviourPun
     {
         if (!doIHaveControllOverThisPlayer)
             return;
-            
+
         if (!canMove)
             return;
 
@@ -90,12 +90,14 @@ public class PlayerMovementController : MonoBehaviourPun
     private void SubscribeEvents()
     {
         LevelManager.OnLevelStarted += AllowMovement;
+        LevelManager.OnMultiplayerRoundFinish += RestrictMovement;
         playerController.OnPlayerResetLevel += RestrictMovement;
     }
 
     private void UnSubscribeEvents()
     {
         LevelManager.OnLevelStarted -= AllowMovement;
+        LevelManager.OnMultiplayerRoundFinish -= RestrictMovement;
         playerController.OnPlayerResetLevel -= RestrictMovement;
     }
 

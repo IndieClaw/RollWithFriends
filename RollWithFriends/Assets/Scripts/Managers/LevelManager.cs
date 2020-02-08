@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviourPunCallbacks
     public static event Action OnLevelStarted = delegate { };
     public static event Action<string, string, float> OnLevelEnded = delegate { };
 
+    public static event Action OnMultiplayerRoundFinish = delegate { };
+
     string levelName;
 
     string levelCodeName;
@@ -45,8 +47,10 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     MultiplayerRoomDetails multiplayerRoomDetails;
 
-    bool isMultiplayer;    
+    bool isMultiplayer;
+    bool canDecrementMultiplayerLevelTimer;
     float loadedPlayersCount = 0;
+    float multiPlayerLevelTimer = 0f;
 
     #endregion
 
@@ -58,16 +62,17 @@ public class LevelManager : MonoBehaviourPunCallbacks
     {
         levelName = lvlName;
         levelCodeName = lvlCodeName;
-    }  
+    }
 
     public void SetMultiplayerRoomDetails(MultiplayerRoomDetails roomDetails)
     {
         isMultiplayer = true;
         multiplayerTimerCanvasObject.SetActive(true);
-        mutliplayerTimerTextMesh.text= roomDetails.RoundTimeSeconds.ToString("F2");
+        mutliplayerTimerTextMesh.text = roomDetails.RoundTimeSeconds.ToString("F2");
+        multiPlayerLevelTimer = roomDetails.RoundTimeSeconds;
 
         multiplayerRoomDetails = roomDetails;
-        
+
     }
 
     public void InitializeLevel()
@@ -140,13 +145,41 @@ public class LevelManager : MonoBehaviourPunCallbacks
             }
         }
 
-        if (Input.GetButtonDown(Constants.ButtonShowScoreList))
+        if (isMultiplayer)
         {
-            scoreListCanvas.SetActive(true);
-        }
-        if (Input.GetButtonUp(Constants.ButtonShowScoreList))
-        {
-            scoreListCanvas.SetActive(false);
+            if (canDecrementMultiplayerLevelTimer)
+            {
+                if (multiPlayerLevelTimer >= 0)
+                {
+                    multiPlayerLevelTimer -= Time.deltaTime;
+
+                    if (mutliplayerTimerTextMesh != null)
+                    {
+                        mutliplayerTimerTextMesh.text = multiPlayerLevelTimer.ToString("F2");
+
+                    }
+
+                }
+
+                if (multiPlayerLevelTimer <= 0)
+                {
+                    multiPlayerLevelTimer = 0;
+                    canDecrementMultiplayerLevelTimer = false;
+                    mutliplayerTimerTextMesh.text = "0.00";
+                    canIncrementLevelTimer = false;
+                    
+                    OnMultiplayerRoundFinish();
+                }
+            }
+
+            if (Input.GetButtonDown(Constants.ButtonShowScoreList))
+            {
+                scoreListCanvas.SetActive(true);
+            }
+            if (Input.GetButtonUp(Constants.ButtonShowScoreList))
+            {
+                scoreListCanvas.SetActive(false);
+            }
         }
     }
 
@@ -188,7 +221,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
                 startingCheckpoint,
                 Quaternion.identity);
 
-            playerController = player.GetComponentInChildren<PlayerController>();            
+            playerController = player.GetComponentInChildren<PlayerController>();
 
             SubscribeEvents();
             photonView.RPC(nameof(IncrementLoadedPlayers), RpcTarget.All);
@@ -222,12 +255,6 @@ public class LevelManager : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    void RPCUpdateMultiplayerScoreList(string playerName, float levelTimer)
-    {
-        print(playerName + levelTimer);
-    }
-
     void LevelStarted()
     {
         countDownTextMesh.gameObject.SetActive(false);
@@ -251,7 +278,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
         else
         {
             for (int i = startingCountdownTime; i >= 0; i--)
-            {                
+            {
                 countDownTextMesh.text = i.ToString();
                 if (i == 0)
                 {
@@ -276,8 +303,15 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
         if (loadedPlayersCount == multiplayerRoomDetails.RoomPlayerCount)
         {
+            canDecrementMultiplayerLevelTimer = true;
             StartCountdownTimer();
         }
+    }
+
+    [PunRPC]
+    void RPCUpdateMultiplayerScoreList(string playerName, float levelTimer)
+    {
+        print(playerName + levelTimer);
     }
 
     #endregion

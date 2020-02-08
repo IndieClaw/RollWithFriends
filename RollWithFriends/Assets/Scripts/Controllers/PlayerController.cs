@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviourPun
 
     [SerializeField] GameObject cameraHolder;
     bool endedLevel;
+    bool canResetPlayer = true;
 
     bool doIHaveControllOverThisPlayer = false;
     #endregion
@@ -48,18 +49,21 @@ public class PlayerController : MonoBehaviourPun
         if (!doIHaveControllOverThisPlayer)
             return;
 
-
-        if (Input.GetButtonDown(Constants.ButtonResetLevel))
+        if (canResetPlayer)
         {
-            OnPlayerResetLevel();
 
-        }
-
-        if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
-        {
-            if (!endedLevel)
+            if (Input.GetButtonDown(Constants.ButtonResetLevel))
             {
-                RespawnAtLastCheckpoint();
+                OnPlayerResetLevel();
+
+            }
+
+            if (Input.GetButtonDown(Constants.ButtonResetCheckpoint))
+            {
+                if (!endedLevel)
+                {
+                    RespawnAtLastCheckpoint();
+                }
             }
         }
 
@@ -68,11 +72,13 @@ public class PlayerController : MonoBehaviourPun
     void SubscriveEvents()
     {
         LevelManager.OnLevelWasReset += RestartAtStart;
+        LevelManager.OnMultiplayerRoundFinish += OnMultiplayerRoundFinish;
     }
 
     void UnsubscribeEvents()
     {
         LevelManager.OnLevelWasReset -= RestartAtStart;
+        LevelManager.OnMultiplayerRoundFinish -= OnMultiplayerRoundFinish;
     }
 
     private void OnDestroy()
@@ -83,6 +89,12 @@ public class PlayerController : MonoBehaviourPun
     private void OnDisable()
     {
         UnsubscribeEvents();
+    }
+
+    private void OnMultiplayerRoundFinish()
+    {
+        canResetPlayer = false;
+        Freeze(true);
     }
 
     void RestartAtStart()
