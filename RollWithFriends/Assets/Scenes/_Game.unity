@@ -614,6 +614,16 @@ PrefabInstance:
       propertyPath: scoreListCanvas
       value: 
       objectReference: {fileID: 2111368954}
+    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
+        type: 3}
+      propertyPath: mutliplayerTimerTextMesh
+      value: 
+      objectReference: {fileID: 6588424390832873686}
+    - target: {fileID: 5726070960403136333, guid: e0c43b9157b40424185c30b0ecdf1869,
+        type: 3}
+      propertyPath: multiplayerTimerCanvasObject
+      value: 
+      objectReference: {fileID: 6588424390832873687}
     - target: {fileID: 5726070960403136322, guid: e0c43b9157b40424185c30b0ecdf1869,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -958,61 +968,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_text
-      value: 
+    - target: {fileID: 2107814214, guid: 7f363c51cfaccb44a9173f3dbb481d9f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.3600006
       objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 237.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1695829652938399039, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f363c51cfaccb44a9173f3dbb481d9f, type: 3}
 --- !u!114 &6588424390832873685 stripped
@@ -1027,6 +986,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6588424390832873686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2107814215, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6588424390832873684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6588424390832873687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2069463207, guid: 7f363c51cfaccb44a9173f3dbb481d9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6588424390832873684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7685106715794820820
 PrefabInstance:
   m_ObjectHideFlags: 0

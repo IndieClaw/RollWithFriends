@@ -19,7 +19,8 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TextMeshProUGUI roomNameTextMesh;
     [SerializeField] TextMeshProUGUI connectingLabelTextMesh;
-    [SerializeField] TMP_Dropdown levelSelectionDropdown;
+
+    [SerializeField] LobbyController lobbyController;
 
     #endregion
 
@@ -70,14 +71,14 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        
+
         joinRoomButton.interactable = true;
         connectingLabelTextMesh.text = "Connected";
     }
 
     public override void OnJoinedRoom()
     {
-        base.OnJoinedRoom();        
+        base.OnJoinedRoom();
         joinRoomButton.interactable = false;
         lobbyWindow.SetActive(true);
         SetRoomDetailsData();
@@ -89,7 +90,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        Debug.Log(PhotonNetwork.CurrentRoom.Players);        
+        Debug.Log(PhotonNetwork.CurrentRoom.Players);
     }
 
 
@@ -166,18 +167,24 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
         var levelManager = FindObjectOfType<LevelManager>();
 
         if (levelManager != null)
-        {
-            levelManager.SetLevelNameData(levelName, levelName); // TODO JS: level name and code name
-            levelManager.SetMultiplayer(true);
-        }
+        {            
+            var roomDetails = new MultiplayerRoomDetails(
+                roomPlayerCount: PhotonNetwork.CurrentRoom.PlayerCount,
+                levelName: levelName,
+                levelCodeName: levelName,// TODO JS: level name is not its codename
+                roundTimeSeconds: lobbyController.roundTimeValueMinutes != 0
+                 ? lobbyController.roundTimeValueMinutes * 60f // value in minutes * 60 to make it seconds
+                 : Constants.DefaultRoundTimeSeconds); 
 
-        levelManager.SetRoomPlayerCount(PhotonNetwork.CurrentRoom.PlayerCount);
+            levelManager.SetMultiplayerRoomDetails(roomDetails);
+        }
     }
 
     [PunRPC]
     void LoadGameRPC()
     {
-        var levelNameToLoad = Constants.MultiplayerLevelsArray[levelSelectionDropdown.value];
+        var levelNameToLoad = Constants
+            .MultiplayerLevelsArray[lobbyController.levelSelectionDropdown.value];
 
 
         StartCoroutine(LoadLevelAsyncRoutine(levelNameToLoad));

@@ -9,8 +9,16 @@ using UnityEngine.UI;
 public class LobbyController : MonoBehaviourPunCallbacks
 {
     #region Fields and properties
+
     [SerializeField] RectTransform playerListContent;
-    [SerializeField] Button playButton;    
+    [SerializeField] Button playButton;
+
+    [SerializeField] public TMP_Dropdown levelSelectionDropdown;
+
+
+
+    [HideInInspector]
+    public float roundTimeValueMinutes; // Default is 3 minutes
 
     #endregion
 
@@ -31,11 +39,19 @@ public class LobbyController : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
         UpdatePlayerList();
     }
-    
+
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
         UpdatePlayerList();
+    }
+
+    public void OnRoundTimeInputChange(string value)
+    {
+        if (!string.IsNullOrEmpty(value))
+        {
+            roundTimeValueMinutes = int.Parse(value);
+        }
     }
 
     #endregion
@@ -44,12 +60,12 @@ public class LobbyController : MonoBehaviourPunCallbacks
     #region Private methods	
 
     void Start()
-    {        
-        
+    {
+
     }
 
     void Update()
-    {        
+    {
     }
 
 

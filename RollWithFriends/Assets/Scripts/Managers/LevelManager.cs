@@ -35,11 +35,19 @@ public class LevelManager : MonoBehaviourPunCallbacks
     float levelTimer = 0f;
 
     [SerializeField] TextMeshProUGUI timerTextMesh;
+
+    [SerializeField] GameObject multiplayerTimerCanvasObject;
+
+    [SerializeField] TextMeshProUGUI mutliplayerTimerTextMesh;
+
+
     [SerializeField] TextMeshProUGUI countDownTextMesh;
 
-    bool isMultiplayer;
-    float levelPlayerCount = 0;
+    MultiplayerRoomDetails multiplayerRoomDetails;
+
+    bool isMultiplayer;    
     float loadedPlayersCount = 0;
+
     #endregion
 
     #region Public methods
@@ -50,16 +58,16 @@ public class LevelManager : MonoBehaviourPunCallbacks
     {
         levelName = lvlName;
         levelCodeName = lvlCodeName;
-    }
+    }  
 
-    public void SetMultiplayer(bool isMultiplayerFlag)
+    public void SetMultiplayerRoomDetails(MultiplayerRoomDetails roomDetails)
     {
-        isMultiplayer = isMultiplayerFlag;
-    }
+        isMultiplayer = true;
+        multiplayerTimerCanvasObject.SetActive(true);
+        mutliplayerTimerTextMesh.text= roomDetails.RoundTimeSeconds.ToString("F2");
 
-    public void SetRoomPlayerCount(int playerCount)
-    {
-        levelPlayerCount = playerCount;
+        multiplayerRoomDetails = roomDetails;
+        
     }
 
     public void InitializeLevel()
@@ -243,8 +251,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
         else
         {
             for (int i = startingCountdownTime; i >= 0; i--)
-            {
-                print(i);
+            {                
                 countDownTextMesh.text = i.ToString();
                 if (i == 0)
                 {
@@ -266,9 +273,8 @@ public class LevelManager : MonoBehaviourPunCallbacks
     void IncrementLoadedPlayers()
     {
         loadedPlayersCount++;
-        print(loadedPlayersCount);
 
-        if (loadedPlayersCount == levelPlayerCount)
+        if (loadedPlayersCount == multiplayerRoomDetails.RoomPlayerCount)
         {
             StartCountdownTimer();
         }
