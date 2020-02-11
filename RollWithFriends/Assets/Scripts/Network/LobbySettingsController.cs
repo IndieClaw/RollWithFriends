@@ -15,7 +15,7 @@ public class LobbySettingsController : MonoBehaviourPunCallbacks
 
     [SerializeField] public TMP_Dropdown levelSelectionDropdown;
 
-
+    [SerializeField] TMP_InputField roundTimeInputField;
 
     [HideInInspector]
     public float roundTimeValueMinutes; // Default is 3 minutes
@@ -50,7 +50,11 @@ public class LobbySettingsController : MonoBehaviourPunCallbacks
     {
         if (!string.IsNullOrEmpty(value))
         {
-            roundTimeValueMinutes = int.Parse(value);
+            if (PhotonNetwork.IsMasterClient)
+            {                
+                roundTimeValueMinutes = int.Parse(value);
+                photonView.RPC(nameof(RPCInputRoundTimeChange), RpcTarget.Others, value);
+            }            
         }
     }
 
@@ -75,7 +79,7 @@ public class LobbySettingsController : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        
+
     }
 
 
@@ -105,6 +109,15 @@ public class LobbySettingsController : MonoBehaviourPunCallbacks
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = nameToShow;
             }
         }
+    }
+
+    #endregion
+    #region RPCS
+    [PunRPC]
+    public void RPCInputRoundTimeChange(string value)
+    {
+        roundTimeValueMinutes = int.Parse(value);
+        roundTimeInputField.text = value;
     }
 
     #endregion
