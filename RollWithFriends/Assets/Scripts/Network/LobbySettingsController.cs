@@ -61,11 +61,21 @@ public class LobbySettingsController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        if (LobbyManager.instance.RoomSettings != null)
+        {
+            UpdatePlayerList();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                playButton.interactable = true;
+            }
+        }
     }
 
     void Update()
     {
+        
     }
 
 

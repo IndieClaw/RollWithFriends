@@ -108,8 +108,18 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     {
         joinRoomButton.interactable = false;
         connectingLabelTextMesh.gameObject.SetActive(true);
+
         PhotonNetwork.AutomaticallySyncScene = true;
-        ConnectToMaster();
+        if (!PhotonNetwork.IsConnected)
+        {
+            ConnectToMaster();
+        }
+        else
+        {            
+            connectingLabelTextMesh.text = "Connected";            
+            SetRoomDetailsData();
+            lobbyWindow.SetActive(true);
+        }
     }
 
     void Update()
@@ -156,13 +166,17 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
         var gameScene = SceneManager.GetSceneByName(Constants.SceneNameGame);
         SceneManager.SetActiveScene(gameScene);
-        UpdateLevelManager(levelName);
+        UpdateLobbyManagerAndInitLevel(levelName);
         SceneManager.UnloadSceneAsync(Constants.SceneNameMultiplayerLobby);
 
         yield return null;
     }
 
-    void UpdateLevelManager(string levelName)
+    /// <summary>
+    /// Updates the lobby manager with the desired settings
+    /// and initializes the level manager so.
+    /// </summary>
+    void UpdateLobbyManagerAndInitLevel(string levelName)
     {
         var roudTimeSeconds = lobbyController.roundTimeValueMinutes != 0
              // value in minutes * 60 to make it seconds

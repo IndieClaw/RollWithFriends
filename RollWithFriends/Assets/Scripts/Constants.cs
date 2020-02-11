@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Constants
 {
-    public const float DefaultRoundTimeSeconds = 180f;
+    public const float DefaultRoundTimeSeconds = 10;
     public const string GameVersion = "v1.0";
     public const string ApiUrl = "https://rollwithfriendsapp.azurewebsites.net";
     public const string UnityCustomTokenAPI = "245gjyu897hy8245gt25bgt76y89hu45gy8701012020";

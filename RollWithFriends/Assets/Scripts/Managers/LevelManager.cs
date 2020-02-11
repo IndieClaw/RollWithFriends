@@ -162,6 +162,8 @@ public class LevelManager : MonoBehaviourPunCallbacks
                     canIncrementLevelTimer = false;
 
                     OnMultiplayerRoundFinish();
+
+                    SceneManager.LoadScene(Constants.SceneNameMultiplayerLobby);
                 }
             }
 
