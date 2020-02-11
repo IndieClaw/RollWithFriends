@@ -20,7 +20,7 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
     [SerializeField] TextMeshProUGUI roomNameTextMesh;
     [SerializeField] TextMeshProUGUI connectingLabelTextMesh;
 
-    [SerializeField] LobbyController lobbyController;
+    [SerializeField] LobbySettingsController lobbyController;
 
     #endregion
 

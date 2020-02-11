@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyController : MonoBehaviourPunCallbacks
+public class LobbySettingsController : MonoBehaviourPunCallbacks
 {
     #region Fields and properties
 
