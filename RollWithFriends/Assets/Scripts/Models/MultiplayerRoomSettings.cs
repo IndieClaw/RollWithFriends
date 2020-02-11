@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiplayerRoomDetails
+public class MultiplayerRoomSettings
 {
     #region Fields and properties
     public int RoomPlayerCount { get; set; }
@@ -16,12 +16,12 @@ public class MultiplayerRoomDetails
     #endregion
 
     #region Public methods
-    public MultiplayerRoomDetails()
+    public MultiplayerRoomSettings()
     {
 
     }
 
-    public MultiplayerRoomDetails(
+    public MultiplayerRoomSettings(
         int roomPlayerCount,
         string levelName,
         string levelCodeName,

@@ -164,19 +164,22 @@ public class NetworkConnectionManager : MonoBehaviourPunCallbacks
 
     void UpdateLevelManager(string levelName)
     {
+        var roomSettings = new MultiplayerRoomSettings(
+            roomPlayerCount: PhotonNetwork.CurrentRoom.PlayerCount,
+            levelName: levelName,
+            levelCodeName: levelName,// TODO JS: level name is not its codename
+            roundTimeSeconds: lobbyController.roundTimeValueMinutes != 0
+             ? lobbyController.roundTimeValueMinutes * 60f // value in minutes * 60 to make it seconds
+             : Constants.DefaultRoundTimeSeconds);
+
+        LobbyManager.instance.SetMultiplayerRoomDetails(roomSettings);
+        
         var levelManager = FindObjectOfType<LevelManager>();
 
         if (levelManager != null)
-        {            
-            var roomDetails = new MultiplayerRoomDetails(
-                roomPlayerCount: PhotonNetwork.CurrentRoom.PlayerCount,
-                levelName: levelName,
-                levelCodeName: levelName,// TODO JS: level name is not its codename
-                roundTimeSeconds: lobbyController.roundTimeValueMinutes != 0
-                 ? lobbyController.roundTimeValueMinutes * 60f // value in minutes * 60 to make it seconds
-                 : Constants.DefaultRoundTimeSeconds); 
-
-            levelManager.SetMultiplayerRoomDetails(roomDetails);
+        {
+            levelManager.InitializeMultiplayer();
+        
         }
     }
 

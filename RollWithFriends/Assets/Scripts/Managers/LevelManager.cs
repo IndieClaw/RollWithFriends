@@ -45,8 +45,6 @@ public class LevelManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TextMeshProUGUI countDownTextMesh;
 
-    MultiplayerRoomDetails multiplayerRoomDetails;
-
     bool isMultiplayer;
     bool canDecrementMultiplayerLevelTimer;
     float loadedPlayersCount = 0;
@@ -64,15 +62,10 @@ public class LevelManager : MonoBehaviourPunCallbacks
         levelCodeName = lvlCodeName;
     }
 
-    public void SetMultiplayerRoomDetails(MultiplayerRoomDetails roomDetails)
+    public void InitializeMultiplayer()
     {
         isMultiplayer = true;
-        multiplayerTimerCanvasObject.SetActive(true);
-        mutliplayerTimerTextMesh.text = roomDetails.RoundTimeSeconds.ToString("F2");
-        multiPlayerLevelTimer = roomDetails.RoundTimeSeconds;
-
-        multiplayerRoomDetails = roomDetails;
-
+        UpdateMultiplayerCanvas();
     }
 
     public void InitializeLevel()
@@ -130,7 +123,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
         {
             startingCheckpoint = startingCp.transform.position;
             InitializeLevel();
-        }
+        }        
     }
 
     void Update()
@@ -167,7 +160,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
                     canDecrementMultiplayerLevelTimer = false;
                     mutliplayerTimerTextMesh.text = "0.00";
                     canIncrementLevelTimer = false;
-                    
+
                     OnMultiplayerRoundFinish();
                 }
             }
@@ -240,6 +233,14 @@ public class LevelManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void UpdateMultiplayerCanvas()
+    {
+        multiplayerTimerCanvasObject.SetActive(true);
+        mutliplayerTimerTextMesh.text = LobbyManager.instance.RoomSettings.RoundTimeSeconds.ToString("F2");
+        multiPlayerLevelTimer = LobbyManager.instance.RoomSettings.RoundTimeSeconds;
+    }
+
+
     void OnPlayerReachedEnd()
     {
         canIncrementLevelTimer = false;
@@ -301,7 +302,7 @@ public class LevelManager : MonoBehaviourPunCallbacks
     {
         loadedPlayersCount++;
 
-        if (loadedPlayersCount == multiplayerRoomDetails.RoomPlayerCount)
+        if (loadedPlayersCount == LobbyManager.instance.RoomSettings.RoomPlayerCount)
         {
             canDecrementMultiplayerLevelTimer = true;
             StartCountdownTimer();
